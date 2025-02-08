@@ -26,7 +26,10 @@ serve(async (req) => {
       body: JSON.stringify({
         model: 'gpt-4o',
         messages: [
-          { role: 'system', content: 'You are a helpful AI assistant focused on providing innovative solutions and breaking boundaries in technology.' },
+          { 
+            role: 'system', 
+            content: 'You are an AI expert focused on innovative technology solutions. Your responses should be clear, professional, and emphasize practical applications of AI technology. Feel free to include examples and suggest creative solutions while maintaining a helpful and educational tone.' 
+          },
           { role: 'user', content: prompt }
         ],
       }),
