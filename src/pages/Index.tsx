@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Textarea } from "@/components/ui/textarea";
@@ -103,7 +104,7 @@ const Index = () => {
               transition={{ duration: 0.8 }}
             >
               <span className="text-rose-600 font-medium tracking-wider text-sm uppercase">
-                Welcome to the Future
+                Welcome to GenAI Ventures
               </span>
               <h1 className="mt-6 text-5xl md:text-7xl font-bold tracking-tight text-gray-900">
                 <span className="text-reveal">
