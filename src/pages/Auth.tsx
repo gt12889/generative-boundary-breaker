@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -7,6 +7,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { Building2, Lock, Mail, User } from "lucide-react";
+
+const GUEST_EMAIL = "guest@example.com";
+const GUEST_PASSWORD = "guest123";
 
 const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,6 +19,42 @@ const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  useEffect(() => {
+    const ensureGuestAccount = async () => {
+      try {
+        // Try to sign in as guest to check if account exists
+        const { error: signInError } = await supabase.auth.signInWithPassword({
+          email: GUEST_EMAIL,
+          password: GUEST_PASSWORD,
+        });
+
+        // If signin fails, create the guest account
+        if (signInError) {
+          const { error: signUpError } = await supabase.auth.signUp({
+            email: GUEST_EMAIL,
+            password: GUEST_PASSWORD,
+            options: {
+              data: {
+                username: "Guest User",
+              },
+            },
+          });
+          
+          if (signUpError) {
+            console.error("Error creating guest account:", signUpError);
+          }
+        }
+
+        // Sign out after checking/creating guest account
+        await supabase.auth.signOut();
+      } catch (error) {
+        console.error("Error ensuring guest account:", error);
+      }
+    };
+
+    ensureGuestAccount();
+  }, []);
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,8 +99,8 @@ const Auth = () => {
     setIsLoading(true);
     try {
       const { error } = await supabase.auth.signInWithPassword({
-        email: "guest@example.com",
-        password: "guest123",
+        email: GUEST_EMAIL,
+        password: GUEST_PASSWORD,
       });
       if (error) throw error;
       navigate("/");
