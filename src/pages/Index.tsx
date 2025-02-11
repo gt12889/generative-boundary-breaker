@@ -1,6 +1,6 @@
+
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
@@ -27,9 +27,6 @@ const features = [
 
 const Index = () => {
   const observerRef = useRef<IntersectionObserver | null>(null);
-  const [prompt, setPrompt] = useState("");
-  const [aiResponse, setAiResponse] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [profile, setProfile] = useState<{ username: string | null } | null>(null);
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -83,47 +80,6 @@ const Index = () => {
     }
   };
 
-  const handleGenerate = async () => {
-    if (!prompt.trim()) {
-      toast({
-        title: "Please enter a prompt",
-        description: "The prompt cannot be empty",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    setIsLoading(true);
-    try {
-      const response = await fetch("/api/generate-with-ai", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ prompt }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to generate response");
-      }
-
-      const data = await response.json();
-      setAiResponse(data.generatedText);
-      toast({
-        title: "Success",
-        description: "AI response generated successfully",
-      });
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to generate AI response",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   return (
     <div className="overflow-hidden">
       <div className="fixed top-4 right-4 z-50 flex items-center gap-4">
@@ -166,12 +122,18 @@ const Index = () => {
                 your most challenging problems.
               </p>
               <div className="mt-10 flex justify-center gap-4">
-                <button className="px-8 py-3 rounded-full bg-rose-600 text-white font-medium hover:bg-rose-700 transition-colors">
+                <Button 
+                  onClick={() => navigate("/prompt")}
+                  className="px-8 py-3 rounded-full bg-rose-600 text-white font-medium hover:bg-rose-700 transition-colors"
+                >
                   Get Started
-                </button>
-                <button className="px-8 py-3 rounded-full border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors">
+                </Button>
+                <Button
+                  variant="outline" 
+                  className="px-8 py-3 rounded-full border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+                >
                   Learn More
-                </button>
+                </Button>
               </div>
             </motion.div>
           </div>
@@ -207,48 +169,6 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="section bg-gradient-to-b from-white to-rose-50">
-        <div className="container mx-auto">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12 animate-on-scroll">
-              <span className="text-rose-600 font-medium tracking-wider text-sm uppercase">
-                Try It Out
-              </span>
-              <h2 className="mt-6 text-4xl font-bold text-gray-900">
-                Experience AI in Action
-              </h2>
-            </div>
-            <div className="space-y-6">
-              <Textarea
-                placeholder="Enter your prompt here..."
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                className="min-h-[120px] text-lg"
-              />
-              <div className="flex justify-center">
-                <Button
-                  onClick={handleGenerate}
-                  className="px-8 py-6 rounded-full bg-rose-600 text-white font-medium hover:bg-rose-700 transition-colors"
-                  disabled={isLoading}
-                >
-                  {isLoading ? "Generating..." : "Generate Response"}
-                </Button>
-              </div>
-              {aiResponse && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="mt-8 p-6 rounded-2xl glass"
-                >
-                  <h3 className="text-xl font-semibold mb-4">AI Response:</h3>
-                  <p className="text-gray-700 whitespace-pre-wrap">{aiResponse}</p>
-                </motion.div>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className="section bg-gradient-to-t from-rose-50 to-white">
         <div className="container mx-auto">
           <div className="max-w-4xl mx-auto text-center animate-on-scroll">
@@ -262,9 +182,12 @@ const Index = () => {
               Contact us today to discover how our AI solutions can help you achieve
               unprecedented success.
             </p>
-            <button className="mt-10 px-8 py-3 rounded-full bg-rose-600 text-white font-medium hover:bg-rose-700 transition-colors">
+            <Button
+              onClick={() => navigate("/prompt")}
+              className="mt-10 px-8 py-3 rounded-full bg-rose-600 text-white font-medium hover:bg-rose-700 transition-colors"
+            >
               Contact Us
-            </button>
+            </Button>
           </div>
         </div>
       </section>
