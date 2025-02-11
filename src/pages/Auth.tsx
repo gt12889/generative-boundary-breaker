@@ -56,6 +56,26 @@ const Auth = () => {
     }
   };
 
+  const handleGuestLogin = async () => {
+    setIsLoading(true);
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: "guest@example.com",
+        password: "guest123",
+      });
+      if (error) throw error;
+      navigate("/");
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-50 via-white to-rose-50">
       {/* Decorative Elements */}
@@ -150,6 +170,18 @@ const Auth = () => {
                 : "Sign In"}
             </Button>
           </form>
+
+          <div className="mt-4">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={handleGuestLogin}
+              className="w-full border-rose-200 hover:bg-rose-50"
+              disabled={isLoading}
+            >
+              Continue as Guest
+            </Button>
+          </div>
 
           <div className="mt-6 text-center">
             <button
