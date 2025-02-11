@@ -1,9 +1,10 @@
-
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import { useNavigate } from "react-router-dom";
 
 const features = [
   {
@@ -29,7 +30,25 @@ const Index = () => {
   const [prompt, setPrompt] = useState("");
   const [aiResponse, setAiResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [profile, setProfile] = useState<{ username: string | null } | null>(null);
   const { toast } = useToast();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data } = await supabase
+          .from('profiles')
+          .select('username')
+          .eq('id', user.id)
+          .single();
+        setProfile(data);
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   useEffect(() => {
     observerRef.current = new IntersectionObserver(
@@ -50,6 +69,19 @@ const Index = () => {
 
     return () => observerRef.current?.disconnect();
   }, []);
+
+  const handleSignOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      toast({
+        title: "Error signing out",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      navigate("/auth");
+    }
+  };
 
   const handleGenerate = async () => {
     if (!prompt.trim()) {
@@ -94,7 +126,21 @@ const Index = () => {
 
   return (
     <div className="overflow-hidden">
-      {/* Hero Section */}
+      <div className="fixed top-4 right-4 z-50 flex items-center gap-4">
+        {profile && (
+          <span className="text-gray-700">
+            Welcome, {profile.username || 'User'}
+          </span>
+        )}
+        <Button
+          onClick={handleSignOut}
+          variant="outline"
+          className="bg-white hover:bg-gray-100"
+        >
+          Sign Out
+        </Button>
+      </div>
+
       <section className="section relative bg-gradient-to-b from-rose-50 to-white">
         <div className="container mx-auto">
           <div className="max-w-4xl mx-auto text-center">
@@ -132,7 +178,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Features Section */}
       <section className="section bg-white">
         <div className="container mx-auto">
           <div className="text-center mb-20 animate-on-scroll">
@@ -162,7 +207,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* AI Generation Section */}
       <section className="section bg-gradient-to-b from-white to-rose-50">
         <div className="container mx-auto">
           <div className="max-w-4xl mx-auto">
@@ -205,7 +249,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Contact Section */}
       <section className="section bg-gradient-to-t from-rose-50 to-white">
         <div className="container mx-auto">
           <div className="max-w-4xl mx-auto text-center animate-on-scroll">
