@@ -37,6 +37,17 @@ const AboutUs = () => {
               At GenAI Ventures, we specialize in cutting-edge Generative AI solutions tailored for business analysis and data-driven decision-making. Our expertise spans from data management and hybrid computing to AI-powered system design and integration, ensuring organizations can harness the full potential of artificial intelligence.
             </p>
 
+            <div className="my-12">
+              <motion.img
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                src="/lovable-uploads/9cbc8bf2-90cd-4f0e-9e4c-4f583012bc0e.png"
+                alt="Digital transformation visualization"
+                className="w-full rounded-xl shadow-lg mb-8"
+              />
+            </div>
+
             <hr className="my-4 border-gray-300" />
 
             <p className="text-gray-700">
@@ -47,6 +58,17 @@ const AboutUs = () => {
             <p className="text-gray-700">
               We prioritize infrastructure reliability by implementing HVAC-regulated storage to maintain optimal conditions for hardware and ensuring the smooth integration of third-party software and AI models. Our team handles everything from licensing acquisition to system validation, so your AI solutions run efficiently and effectively.
             </p>
+
+            <div className="my-12">
+              <motion.img
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                src="/lovable-uploads/6548cb94-1500-453d-8641-bc4ee2f240b0.png"
+                alt="Data analysis and search concept"
+                className="w-full rounded-xl shadow-lg mb-8"
+              />
+            </div>
 
             <hr className="my-4 border-gray-300" />
             <p className="text-gray-700">
