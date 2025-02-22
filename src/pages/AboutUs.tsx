@@ -37,18 +37,23 @@ const AboutUs = () => {
               At GenAI Ventures, we specialize in cutting-edge Generative AI solutions tailored for business analysis and data-driven decision-making. Our expertise spans from data management and hybrid computing to AI-powered system design and integration, ensuring organizations can harness the full potential of artificial intelligence.
             </p>
 
+            <hr className="my-4 border-gray-300" />
+
             <p className="text-gray-700">
               Our data infrastructure solutions include creating robust data warehouses, accumulating and staging data from open-source AI models and enterprise resources. By leveraging cloud computing and on-premise hardware, we deliver seamless hybrid computing environments optimized for performance, security, and scalability.
             </p>
 
+  <hr className="my-4 border-gray-300" />
             <p className="text-gray-700">
               We prioritize infrastructure reliability by implementing HVAC-regulated storage to maintain optimal conditions for hardware and ensuring the smooth integration of third-party software and AI models. Our team handles everything from licensing acquisition to system validation, so your AI solutions run efficiently and effectively.
             </p>
 
+            <hr className="my-4 border-gray-300" />
             <p className="text-gray-700">
               At GenAI Ventures, we believe in delivering end-to-end solutions, from prototype development and rigorous testing to stakeholder presentations and final project documentation. Our commitment extends beyond implementation—we provide expert recommendations to help businesses future-proof their AI investments.
             </p>
 
+            <hr className="my-4 border-gray-300" />
             <p className="text-gray-700 font-medium">
               Partner with GenAI Ventures to transform your AI-driven business strategy and unlock new levels of innovation and efficiency.
             </p>
