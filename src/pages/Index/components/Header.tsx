@@ -37,6 +37,7 @@ const Header = () => {
         </Button>
         <Button
           variant="outline" 
+          onClick={() => navigate("/about")}
           className="px-8 py-3 rounded-full border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors"
         >
           Learn More
