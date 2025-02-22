@@ -9,6 +9,54 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      company_profile: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: number
+          model_name: string
+          version: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: never
+          model_name: string
+          version?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: never
+          model_name?: string
+          version?: string | null
+        }
+        Relationships: []
+      }
+      generative_ai_models: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: number
+          model_name: string
+          version: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: never
+          model_name: string
+          version?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: never
+          model_name?: string
+          version?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
