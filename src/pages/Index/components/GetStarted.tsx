@@ -35,6 +35,13 @@ const GetStarted = () => {
           >
             View Product Structure
           </Button>
+          <Button 
+            variant="outline" 
+            className="px-6 py-6 rounded-full border-rose-300 text-rose-600 hover:bg-rose-50"
+            onClick={() => navigate("/use-cases")}
+          >
+            See Live Demo
+          </Button>
         </div>
       </div>
     </div>
