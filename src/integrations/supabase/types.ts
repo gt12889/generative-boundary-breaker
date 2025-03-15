@@ -9,6 +9,38 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      categories: {
+        Row: {
+          category_id: number
+          created_at: string | null
+          description: string | null
+          name: string
+          product_id: number | null
+        }
+        Insert: {
+          category_id?: number
+          created_at?: string | null
+          description?: string | null
+          name: string
+          product_id?: number | null
+        }
+        Update: {
+          category_id?: number
+          created_at?: string | null
+          description?: string | null
+          name?: string
+          product_id?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "categories_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["product_id"]
+          },
+        ]
+      }
       company_profile: {
         Row: {
           created_at: string | null
@@ -57,6 +89,27 @@ export type Database = {
         }
         Relationships: []
       }
+      products: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          name: string
+          product_id: number
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          name: string
+          product_id?: number
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          name?: string
+          product_id?: number
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -78,6 +131,82 @@ export type Database = {
         }
         Relationships: []
       }
+      subcategories: {
+        Row: {
+          category_id: number | null
+          created_at: string | null
+          description: string | null
+          name: string
+          subcategory_id: number
+        }
+        Insert: {
+          category_id?: number | null
+          created_at?: string | null
+          description?: string | null
+          name: string
+          subcategory_id?: number
+        }
+        Update: {
+          category_id?: number | null
+          created_at?: string | null
+          description?: string | null
+          name?: string
+          subcategory_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subcategories_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["category_id"]
+          },
+        ]
+      }
+      tasks: {
+        Row: {
+          assigned_to: string | null
+          created_at: string | null
+          description: string | null
+          due_date: string | null
+          name: string
+          priority_level: Database["public"]["Enums"]["priority_level"]
+          status: Database["public"]["Enums"]["task_status"]
+          subcategory_id: number | null
+          task_id: number
+        }
+        Insert: {
+          assigned_to?: string | null
+          created_at?: string | null
+          description?: string | null
+          due_date?: string | null
+          name: string
+          priority_level?: Database["public"]["Enums"]["priority_level"]
+          status?: Database["public"]["Enums"]["task_status"]
+          subcategory_id?: number | null
+          task_id?: number
+        }
+        Update: {
+          assigned_to?: string | null
+          created_at?: string | null
+          description?: string | null
+          due_date?: string | null
+          name?: string
+          priority_level?: Database["public"]["Enums"]["priority_level"]
+          status?: Database["public"]["Enums"]["task_status"]
+          subcategory_id?: number | null
+          task_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tasks_subcategory_id_fkey"
+            columns: ["subcategory_id"]
+            isOneToOne: false
+            referencedRelation: "subcategories"
+            referencedColumns: ["subcategory_id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -86,7 +215,8 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      priority_level: "Low" | "Medium" | "High"
+      task_status: "Pending" | "In Progress" | "Completed"
     }
     CompositeTypes: {
       [_ in never]: never
