@@ -11,6 +11,7 @@ import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import PromptPage from "./pages/PromptPage";
 import AboutUs from "./pages/AboutUs";
+import UseCases from "./pages/UseCases";
 
 const queryClient = new QueryClient();
 
@@ -69,6 +70,14 @@ const App = () => (
             element={
               <ProtectedRoute>
                 <AboutUs />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/use-cases"
+            element={
+              <ProtectedRoute>
+                <UseCases />
               </ProtectedRoute>
             }
           />

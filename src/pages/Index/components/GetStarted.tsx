@@ -4,26 +4,31 @@ import { useNavigate } from "react-router-dom";
 
 const GetStarted = () => {
   const navigate = useNavigate();
-
+  
   return (
     <div className="container mx-auto">
-      <div className="max-w-4xl mx-auto text-center animate-on-scroll">
-        <span className="text-rose-600 font-medium tracking-wider text-sm uppercase">
-          Get Started
-        </span>
-        <h2 className="mt-6 text-4xl font-bold text-gray-900">
-          Ready to Transform Your Future?
+      <div className="max-w-3xl mx-auto text-center animate-on-scroll">
+        <h2 className="text-3xl font-bold mb-6 md:text-4xl">
+          Ready to experience the power of AI?
         </h2>
-        <p className="mt-6 text-xl text-gray-600">
-          Contact us today to discover how our AI solutions can help you achieve
-          unprecedented success.
+        <p className="text-xl text-gray-600 mb-10">
+          Get started today and see how our platform can transform your workflow.
         </p>
-        <Button
-          onClick={() => navigate("/prompt")}
-          className="mt-10 px-8 py-3 rounded-full bg-rose-600 text-white font-medium hover:bg-rose-700 transition-colors"
-        >
-          Contact Us
-        </Button>
+        <div className="flex flex-wrap justify-center gap-4">
+          <Button 
+            className="bg-rose-600 hover:bg-rose-700 text-white px-6 py-6 rounded-full"
+            onClick={() => navigate("/prompt")}
+          >
+            Try Our AI Demo
+          </Button>
+          <Button 
+            variant="outline" 
+            className="px-6 py-6 rounded-full border-rose-300 text-rose-600 hover:bg-rose-50"
+            onClick={() => navigate("/use-cases")}
+          >
+            Explore Use Cases
+          </Button>
+        </div>
       </div>
     </div>
   );
