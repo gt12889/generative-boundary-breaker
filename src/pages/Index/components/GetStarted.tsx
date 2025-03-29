@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { ArrowRight, Zap } from "lucide-react";
 
 const GetStarted = () => {
   const navigate = useNavigate();
@@ -37,10 +38,11 @@ const GetStarted = () => {
           </Button>
           <Button 
             variant="outline" 
-            className="px-6 py-6 rounded-full border-rose-300 text-rose-600 hover:bg-rose-50"
-            onClick={() => navigate("/use-cases")}
+            className="px-6 py-6 rounded-full border-rose-300 text-rose-600 hover:bg-rose-50 gap-2"
+            onClick={() => navigate("/pricing")}
           >
-            See Live Demo
+            <Zap className="w-5 h-5" />
+            View Pricing Plans
           </Button>
         </div>
       </div>
