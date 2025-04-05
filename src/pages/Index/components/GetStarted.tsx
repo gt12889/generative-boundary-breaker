@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, Zap } from "lucide-react";
+import { ArrowRight, Zap, ExternalLink } from "lucide-react";
 
 const GetStarted = () => {
   const navigate = useNavigate();
@@ -31,10 +31,11 @@ const GetStarted = () => {
           </Button>
           <Button 
             variant="outline" 
-            className="px-6 py-6 rounded-full border-rose-300 text-rose-600 hover:bg-rose-50"
-            onClick={() => navigate("/product-structure")}
+            className="px-6 py-6 rounded-full border-rose-300 text-rose-600 hover:bg-rose-50 gap-2"
+            onClick={() => navigate("/use-cases")}
           >
-            View Product Structure
+            <ExternalLink className="w-5 h-5" />
+            See Live Demo
           </Button>
           <Button 
             variant="outline" 
