@@ -259,7 +259,7 @@ const PricingPage = () => {
               <div className="flex items-center">
                 <div className="w-12 h-12 bg-gray-200 rounded-full mr-4"></div>
                 <div>
-                  <p className="font-medium">Sarah Johnson</p>
+                  <p className="font-medium">Tommy Nguyen</p>
                   <p className="text-gray-500 text-sm">Marketing Director, TechCorp</p>
                 </div>
               </div>
@@ -270,7 +270,7 @@ const PricingPage = () => {
               <div className="flex items-center">
                 <div className="w-12 h-12 bg-gray-200 rounded-full mr-4"></div>
                 <div>
-                  <p className="font-medium">Michael Chen</p>
+                  <p className="font-medium">Tuan</p>
                   <p className="text-gray-500 text-sm">CEO, GrowthServe</p>
                 </div>
               </div>
