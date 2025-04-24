@@ -1,4 +1,3 @@
-
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Link } from "lucide-react";
 import { Comparison, platforms } from "./data";
@@ -6,6 +5,7 @@ import ComparisonTableRow from "./ComparisonTableRow";
 import ComparisonRadar from "./ComparisonRadar";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import RoleFilter, { UserRole } from "./RoleFilter";
 
 interface ComparisonTableProps {
   activeComparison: Comparison;
@@ -13,15 +13,16 @@ interface ComparisonTableProps {
 
 const ComparisonTable = ({ activeComparison }: ComparisonTableProps) => {
   const [showAiSummary, setShowAiSummary] = useState(false);
+  const [selectedRole, setSelectedRole] = useState<UserRole>("all");
   const activePlatforms = activeComparison.platforms.map(index => platforms[index]);
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-end">
+      <div className="flex justify-between items-center">
+        <RoleFilter selectedRole={selectedRole} onRoleChange={setSelectedRole} />
         <Button
           variant="outline"
           onClick={() => setShowAiSummary(!showAiSummary)}
-          className="mb-4"
         >
           {showAiSummary ? "Hide AI Summary" : "Show AI Summary"}
         </Button>
@@ -124,6 +125,38 @@ const ComparisonTable = ({ activeComparison }: ComparisonTableProps) => {
                   {platform.keyFeatures.map((feature, i) => (
                     <li key={i}>{feature}</li>
                   ))}
+                </ul>
+              )}
+              activeComparison={activeComparison}
+            />
+            <ComparisonTableRow 
+              label="Role-Specific Use Cases" 
+              renderCell={(platform) => (
+                <ul className="list-disc pl-5 space-y-1">
+                  {selectedRole === "all" 
+                    ? platform.useCases.map((useCase, i) => (
+                        <li key={i}>{useCase}</li>
+                      ))
+                    : platform.roleSpecificUseCase[selectedRole].map((useCase, i) => (
+                        <li key={i}>{useCase}</li>
+                      ))
+                  }
+                </ul>
+              )}
+              activeComparison={activeComparison}
+            />
+            <ComparisonTableRow 
+              label="Key Strengths" 
+              renderCell={(platform) => (
+                <ul className="list-disc pl-5 space-y-1">
+                  {selectedRole === "all"
+                    ? platform.keyFeatures.map((feature, i) => (
+                        <li key={i}>{feature}</li>
+                      ))
+                    : platform.roleSpecificStrengths[selectedRole].map((strength, i) => (
+                        <li key={i}>{strength}</li>
+                      ))
+                  }
                 </ul>
               )}
               activeComparison={activeComparison}

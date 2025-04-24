@@ -14,6 +14,16 @@ export interface Platform {
     ecosystem: number;
     aiSupport: number;
   };
+  roleSpecificUseCase: {
+    startup: string[];
+    'data-scientist': string[];
+    enterprise: string[];
+  };
+  roleSpecificStrengths: {
+    startup: string[];
+    'data-scientist': string[];
+    enterprise: string[];
+  };
 }
 
 export interface Comparison {
@@ -48,6 +58,16 @@ export const platforms: Platform[] = [
       cost: 40,
       ecosystem: 75,
       aiSupport: 95
+    },
+    roleSpecificUseCase: {
+      startup: ["Quick market entry with established charging network", "Access to proven EV technology"],
+      'data-scientist': ["Rich autonomous driving data analysis", "Battery performance optimization"],
+      enterprise: ["Large-scale fleet management", "Predictable maintenance schedules"]
+    },
+    roleSpecificStrengths: {
+      startup: ["Strong brand association", "Established market presence"],
+      'data-scientist': ["Advanced AI capabilities", "Rich telemetry data"],
+      enterprise: ["Proven scalability", "Comprehensive service network"]
     }
   },
   {
@@ -74,6 +94,16 @@ export const platforms: Platform[] = [
       cost: 45,
       ecosystem: 65,
       aiSupport: 80
+    },
+    roleSpecificUseCase: {
+      startup: ["Niche market targeting", "Early adopter appeal"],
+      'data-scientist': ["EV performance analytics", "Usage pattern analysis"],
+      enterprise: ["Custom fleet solutions", "Sustainable transport initiatives"]
+    },
+    roleSpecificStrengths: {
+      startup: ["Innovation-first approach", "Strong sustainability story"],
+      'data-scientist': ["Modern data architecture", "Advanced analytics platform"],
+      enterprise: ["Flexible fleet customization", "Direct manufacturer relationship"]
     }
   },
   {
