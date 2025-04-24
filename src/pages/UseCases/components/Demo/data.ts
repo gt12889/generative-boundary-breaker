@@ -1,4 +1,3 @@
-
 export interface Platform {
   id: string;
   name: string;
@@ -8,12 +7,20 @@ export interface Platform {
   description: string;
   useCases: string[];
   keyFeatures: string[];
+  scores: {
+    ux: number;
+    scalability: number;
+    cost: number;
+    ecosystem: number;
+    aiSupport: number;
+  };
 }
 
 export interface Comparison {
   id: string;
   label: string;
   platforms: number[];
+  aiSummary: string;
 }
 
 export const platforms: Platform[] = [
@@ -34,7 +41,14 @@ export const platforms: Platform[] = [
       "Autonomous driving software",
       "Global infrastructure (Gigafactories)",
       "Strong brand recognition"
-    ]
+    ],
+    scores: {
+      ux: 90,
+      scalability: 85,
+      cost: 40,
+      ecosystem: 75,
+      aiSupport: 95
+    }
   },
   {
     id: "rivian",
@@ -53,7 +67,14 @@ export const platforms: Platform[] = [
       "Environmental branding",
       "Amazon partnership",
       "Agile startup culture"
-    ]
+    ],
+    scores: {
+      ux: 85,
+      scalability: 60,
+      cost: 45,
+      ecosystem: 65,
+      aiSupport: 80
+    }
   },
   {
     id: "notion",
@@ -72,7 +93,14 @@ export const platforms: Platform[] = [
       "Integrates docs, tasks, and databases",
       "Sleek design",
       "Strong user community"
-    ]
+    ],
+    scores: {
+      ux: 85,
+      scalability: 80,
+      cost: 75,
+      ecosystem: 90,
+      aiSupport: 85
+    }
   },
   {
     id: "evernote",
@@ -91,7 +119,14 @@ export const platforms: Platform[] = [
       "Mature mobile experience",
       "Long-term data reliability",
       "Scalable for enterprises"
-    ]
+    ],
+    scores: {
+      ux: 75,
+      scalability: 85,
+      cost: 65,
+      ecosystem: 70,
+      aiSupport: 70
+    }
   },
   {
     id: "shopify",
@@ -110,7 +145,14 @@ export const platforms: Platform[] = [
       "Powerful app ecosystem",
       "Excellent uptime and security",
       "Fast global checkout"
-    ]
+    ],
+    scores: {
+      ux: 95,
+      scalability: 90,
+      cost: 60,
+      ecosystem: 95,
+      aiSupport: 85
+    }
   },
   {
     id: "woocommerce",
@@ -129,7 +171,14 @@ export const platforms: Platform[] = [
       "Tight WordPress integration",
       "More control over customization",
       "No monthly fees"
-    ]
+    ],
+    scores: {
+      ux: 70,
+      scalability: 85,
+      cost: 90,
+      ecosystem: 85,
+      aiSupport: 65
+    }
   }
 ];
 
@@ -137,16 +186,19 @@ export const extendedComparisons: Comparison[] = [
   {
     id: "ev-comparison",
     label: "Tesla vs. Rivian",
-    platforms: [0, 1]
+    platforms: [0, 1],
+    aiSummary: "Tesla leads in technology maturity and global presence, with superior AI capabilities and established infrastructure. Rivian offers a compelling alternative with a focused niche in adventure vehicles and strong environmental credentials, though it faces scaling challenges. Tesla's edge in autonomous driving and battery tech makes it the safer choice for mass-market EVs, while Rivian appeals to outdoor enthusiasts and those seeking a fresh approach to sustainable transport."
   },
   {
     id: "note-taking",
     label: "Notion vs. Evernote",
-    platforms: [2, 3]
+    platforms: [2, 3],
+    aiSummary: "Notion excels in modern collaboration features and flexibility, making it ideal for teams and project management. Evernote maintains an edge in personal note-taking and document scanning with superior OCR capabilities. While Notion offers more customization and better team features, Evernote provides a more straightforward, reliable experience for individual users focused on pure note-taking and research."
   },
   {
     id: "ecommerce",
     label: "Shopify vs. WooCommerce",
-    platforms: [4, 5]
+    platforms: [4, 5],
+    aiSummary: "Shopify offers a more polished, all-in-one solution ideal for businesses wanting a quick start and managed hosting. WooCommerce provides greater customization and cost-effectiveness but requires more technical expertise. For most non-technical merchants, Shopify's ease of use and integrated features make it the better choice, while developers and cost-conscious owners may prefer WooCommerce's flexibility."
   }
 ];
