@@ -18,134 +18,135 @@ export interface Comparison {
 
 export const platforms: Platform[] = [
   {
-    id: "platform1",
-    name: "AI Assistant Pro",
-    icon: "🤖",
-    link: "https://example.com/ai-assistant",
-    tagline: "Intelligent automation for your business processes",
-    description: "AI Assistant Pro is a comprehensive platform that helps businesses automate repetitive tasks and extract insights from data. It features natural language processing, computer vision, and predictive analytics capabilities.",
+    id: "tesla",
+    name: "Tesla Inc.",
+    icon: "🚗",
+    link: "https://tesla.com",
+    tagline: "Accelerating the world's transition to sustainable energy",
+    description: "Industry leader in EVs with global reach, diverse product line, and vertically integrated supply chain.",
     useCases: [
-      "Customer Service Automation",
-      "Data Analysis",
-      "Document Processing",
-      "Knowledge Management",
-      "Predictive Maintenance"
+      "EV Fleet Deployment",
+      "AI-Driven Autopilot",
+      "Energy Grid Integration"
     ],
     keyFeatures: [
-      "Natural Language Understanding",
-      "Machine Learning Models",
-      "API Integrations",
-      "Custom Training",
-      "Analytics Dashboard"
+      "Advanced battery technology",
+      "Autonomous driving software",
+      "Global infrastructure (Gigafactories)",
+      "Strong brand recognition"
     ]
   },
   {
-    id: "platform2",
-    name: "SmartAI",
-    icon: "🧠",
-    link: "https://example.com/smartai",
-    tagline: "Transform your data into actionable insights",
-    description: "SmartAI is an enterprise-grade platform for creating and deploying AI models at scale. It provides tools for data scientists and business users to collaborate on AI projects and implement solutions quickly.",
+    id: "rivian",
+    name: "Rivian Automotive Inc.",
+    icon: "🌲",
+    link: "https://rivian.com",
+    tagline: "Keep the world adventurous forever",
+    description: "Electric truck startup focused on off-road vehicles with emphasis on sustainability and tech innovation.",
     useCases: [
-      "Predictive Analytics",
-      "Recommendation Systems",
-      "Fraud Detection",
-      "Text Classification",
-      "Image Recognition"
+      "Adventure EVs",
+      "Eco-Conscious Consumer Mobility",
+      "Commercial Delivery Fleets"
     ],
     keyFeatures: [
-      "Automated Machine Learning",
-      "Model Management",
-      "Data Pipeline Automation",
-      "Explainable AI",
-      "Deployment Tooling"
+      "Unique market focus (trucks/SUVs)",
+      "Environmental branding",
+      "Amazon partnership",
+      "Agile startup culture"
     ]
   },
   {
-    id: "platform3",
-    name: "Cognitive Cloud",
-    icon: "☁️",
-    link: "https://example.com/cognitive-cloud",
-    tagline: "AI-powered cloud services for modern enterprises",
-    description: "Cognitive Cloud provides a suite of AI services on a cloud-native platform. It enables organizations to build, train, and deploy machine learning models with minimal infrastructure management.",
+    id: "notion",
+    name: "Notion",
+    icon: "🧱",
+    link: "https://notion.so",
+    tagline: "All-in-one workspace for notes, docs, and collaboration",
+    description: "A flexible tool combining docs, wikis, databases, and task management — popular with startups and remote teams.",
     useCases: [
-      "Business Process Automation",
-      "Content Management",
-      "Customer Experience",
-      "Risk Analysis",
-      "Supply Chain Optimization"
+      "Remote Team Wiki",
+      "Personal Productivity Hub",
+      "Startup Knowledge Base"
     ],
     keyFeatures: [
-      "Cloud-native Architecture",
-      "Serverless Functions",
-      "Pre-trained Models",
-      "Continuous Learning",
-      "Enterprise Security"
+      "Customizable templates",
+      "Integrates docs, tasks, and databases",
+      "Sleek design",
+      "Strong user community"
     ]
   },
   {
-    id: "platform4",
-    name: "InsightEngine",
-    icon: "💡",
-    link: "https://example.com/insightengine",
-    tagline: "Turn complex data into simple insights",
-    description: "InsightEngine specializes in transforming complex data from multiple sources into actionable business insights. It uses advanced analytics and AI to identify patterns, anomalies, and opportunities.",
+    id: "evernote",
+    name: "Evernote",
+    icon: "🐘",
+    link: "https://evernote.com",
+    tagline: "Remember everything, organize anything",
+    description: "A pioneer in note-taking with strong OCR and tagging capabilities — geared toward individual and enterprise productivity.",
     useCases: [
-      "Business Intelligence",
-      "Market Research",
-      "Competitive Analysis",
-      "Customer Segmentation",
-      "Performance Monitoring"
+      "Research Notes",
+      "Document Archiving",
+      "Enterprise Knowledge Capture"
     ],
     keyFeatures: [
-      "Data Visualization",
-      "Anomaly Detection",
-      "Trend Analysis",
-      "Automated Reporting",
-      "Multi-source Integration"
+      "Advanced search with OCR",
+      "Mature mobile experience",
+      "Long-term data reliability",
+      "Scalable for enterprises"
+    ]
+  },
+  {
+    id: "shopify",
+    name: "Shopify",
+    icon: "🛍️",
+    link: "https://shopify.com",
+    tagline: "The platform commerce is built on",
+    description: "Hosted all-in-one ecommerce solution known for ease of use, scalability, and rapid deployment.",
+    useCases: [
+      "DTC Brands",
+      "Subscription Products",
+      "Multichannel Retail"
+    ],
+    keyFeatures: [
+      "Plug-and-play simplicity",
+      "Powerful app ecosystem",
+      "Excellent uptime and security",
+      "Fast global checkout"
+    ]
+  },
+  {
+    id: "woocommerce",
+    name: "WooCommerce",
+    icon: "🔌",
+    link: "https://woocommerce.com",
+    tagline: "The customizable, open-source eCommerce platform built on WordPress",
+    description: "WordPress plugin offering open-source flexibility, ideal for content-first businesses and developers.",
+    useCases: [
+      "Small Businesses",
+      "Content-Driven Stores",
+      "Customizable Marketplaces"
+    ],
+    keyFeatures: [
+      "Fully open-source",
+      "Tight WordPress integration",
+      "More control over customization",
+      "No monthly fees"
     ]
   }
 ];
 
-const comparisons: Comparison[] = [
+export const extendedComparisons: Comparison[] = [
   {
-    id: "ai-assistants",
-    label: "AI Assistant Pro vs SmartAI",
+    id: "ev-comparison",
+    label: "Tesla vs. Rivian",
     platforms: [0, 1]
   },
   {
-    id: "cloud-platforms",
-    label: "Cognitive Cloud vs InsightEngine",
+    id: "note-taking",
+    label: "Notion vs. Evernote",
     platforms: [2, 3]
   },
   {
-    id: "enterprise-solutions",
-    label: "AI Assistant Pro vs Cognitive Cloud",
-    platforms: [0, 2]
-  },
-  {
-    id: "analysis-tools",
-    label: "SmartAI vs InsightEngine",
-    platforms: [1, 3]
-  }
-];
-
-// Adding more comparisons to match the image better
-export const extendedComparisons: Comparison[] = [
-  ...comparisons,
-  {
-    id: "assistant-vs-engine",
-    label: "AI Assistant Pro vs InsightEngine",
-    platforms: [0, 3]
-  },
-  {
-    id: "smart-vs-cognitive",
-    label: "SmartAI vs Cognitive Cloud",
-    platforms: [1, 2]
-  },
-  {
-    id: "all-platforms",
-    label: "All AI Platforms",
-    platforms: [0, 1, 2, 3]
+    id: "ecommerce",
+    label: "Shopify vs. WooCommerce",
+    platforms: [4, 5]
   }
 ];
