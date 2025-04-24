@@ -34,6 +34,10 @@ const AboutUs = () => {
           <p className="text-lg text-gray-700">
             With a focus on creativity, collaboration, and compliance, GenAI Ventures is more than a platform — it's your strategic partner in the era of intelligent automation.
           </p>
+          <p className="text-lg text-gray-700">
+   We collaborate closely with clients to understand their unique challenges, tailoring each deployment to align with their specific goals. By fostering an ecosystem of innovation and shared success, we not only deliver measurable business outcomes — we also cultivate a culture of continuous learning and evolution. With GenAI Ventures, you're not just adopting a tool — you're joining a movement that’s shaping the next generation of intelligent enterprises.
+</p>
+
 
           <div className="flex justify-center mt-12">
             <Button
@@ -44,6 +48,12 @@ const AboutUs = () => {
             </Button>
           </div>
         </motion.div>
+        <img
+  src="/images/about-us-illustration.png"
+  alt="Team working on data chart"
+  className="w-full max-w-3xl mx-auto rounded-lg shadow-md my-8"
+/>
+
       </div>
     </div>
   );
