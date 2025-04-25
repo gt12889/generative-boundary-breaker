@@ -17,7 +17,15 @@ import PricingPage from "./pages/PricingPage";
 import CompareCompanies from "./pages/CompareCompanies";
 import CompareProducts from "./pages/CompareProducts";
 
-const queryClient = new QueryClient();
+// Create a new QueryClient instance
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      refetchOnWindowFocus: false,
+    },
+  }
+});
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
@@ -45,83 +53,86 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/auth" element={<Auth />} />
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <Index />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/prompt"
-            element={
-              <ProtectedRoute>
-                <PromptPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/about"
-            element={
-              <ProtectedRoute>
-                <AboutUs />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/use-cases"
-            element={
-              <ProtectedRoute>
-                <UseCases />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/product-structure"
-            element={
-              <ProtectedRoute>
-                <ProductStructure />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/pricing"
-            element={
-              <ProtectedRoute>
-                <PricingPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/compare/companies"
-            element={
-              <ProtectedRoute>
-                <CompareCompanies />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/compare/products"
-            element={
-              <ProtectedRoute>
-                <CompareProducts />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+// Define App as a function component to properly use React hooks
+const App = () => {
+  return (
+    <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <Routes>
+            <Route path="/auth" element={<Auth />} />
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Index />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/prompt"
+              element={
+                <ProtectedRoute>
+                  <PromptPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/about"
+              element={
+                <ProtectedRoute>
+                  <AboutUs />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/use-cases"
+              element={
+                <ProtectedRoute>
+                  <UseCases />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/product-structure"
+              element={
+                <ProtectedRoute>
+                  <ProductStructure />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/pricing"
+              element={
+                <ProtectedRoute>
+                  <PricingPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/compare/companies"
+              element={
+                <ProtectedRoute>
+                  <CompareCompanies />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/compare/products"
+              element={
+                <ProtectedRoute>
+                  <CompareProducts />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </BrowserRouter>
+  );
+};
 
 export default App;

@@ -1,24 +1,45 @@
 
 import { TableCell, TableRow } from "@/components/ui/table";
-import { Comparison, Platform, platforms } from "./data";
+import { Platform } from "./types";
 import React from "react";
 
 interface ComparisonTableRowProps {
   label: string;
-  renderCell: (platform: Platform) => React.ReactNode;
-  activeComparison: Comparison;
+  platforms: Platform[];
+  renderCell?: (platform: Platform) => React.ReactNode;
+  metric?: string;
 }
 
-const ComparisonTableRow = ({ label, renderCell, activeComparison }: ComparisonTableRowProps) => {
+const ComparisonTableRow = ({ label, platforms, renderCell, metric }: ComparisonTableRowProps) => {
+  // If there's a metric provided and no custom renderCell, use the default metric display
+  const defaultRenderCell = (platform: Platform) => {
+    if (!metric) return null;
+    
+    const score = platform.scores[metric as keyof typeof platform.scores];
+    return (
+      <div className="flex items-center">
+        <span className="font-medium">{score}/100</span>
+        <div className="w-full h-2 bg-gray-200 rounded-full ml-2">
+          <div 
+            className="h-2 bg-blue-600 rounded-full" 
+            style={{ width: `${score}%` }}
+          ></div>
+        </div>
+      </div>
+    );
+  };
+
+  const cellRenderer = renderCell || defaultRenderCell;
+
   return (
     <TableRow>
       <TableCell className="p-4 border font-medium">{label}</TableCell>
-      {activeComparison.platforms.map((platformIndex) => (
+      {platforms.map((platform) => (
         <TableCell 
-          key={`${label.toLowerCase().replace(/\s/g, '-')}-${platforms[platformIndex].id}`} 
+          key={`${label.toLowerCase().replace(/\s/g, '-')}-${platform.id}`} 
           className="p-4 border"
         >
-          {renderCell(platforms[platformIndex])}
+          {cellRenderer(platform)}
         </TableCell>
       ))}
     </TableRow>
