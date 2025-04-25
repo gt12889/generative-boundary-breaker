@@ -13,8 +13,8 @@ export interface Platform {
   scores: {
     ux: number;
     scalability: number;
-    cost: number;
     ecosystem: number;
+    cost: number;
     aiSupport: number;
   };
   roleSpecificUseCase: {

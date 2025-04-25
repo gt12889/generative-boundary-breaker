@@ -1,4 +1,3 @@
-
 import { Platform } from './types';
 
 export const platforms: Platform[] = [
@@ -216,6 +215,80 @@ export const platforms: Platform[] = [
       startup: ["Low initial cost", "WordPress ecosystem"],
       'data-scientist': ["Full data control", "Custom analytics"],
       enterprise: ["Complete ownership", "Unlimited customization"]
+    }
+  },
+  {
+    id: "iphone-15-pro",
+    name: "iPhone 15 Pro",
+    icon: "📱",
+    link: "https://www.apple.com/iphone-15-pro/",
+    tagline: "Titanium. So strong. So light. So Pro.",
+    description: "The iPhone 15 Pro features a groundbreaking design with aerospace-grade titanium, the A17 Pro chip, and a pro camera system.",
+    useCases: [
+      "Professional mobile photography",
+      "High-performance mobile gaming",
+      "Vision Pro-ready spatial video recording"
+    ],
+    keyFeatures: [
+      "6.1\" Super Retina XDR OLED, 120Hz ProMotion",
+      "A17 Pro (3nm) chip with 8GB RAM",
+      "48MP Main + 12MP Ultra-Wide + 12MP Telephoto",
+      "Titanium frame with Ceramic Shield",
+      "20W wired, 15W MagSafe wireless charging"
+    ],
+    scores: {
+      ux: 95,
+      scalability: 85,
+      ecosystem: 98,
+      cost: 70,
+      aiSupport: 85
+    },
+    roleSpecificUseCase: {
+      startup: ["Quick content creation", "Business video calls", "Mobile productivity"],
+      'data-scientist': ["On-device ML processing", "Data visualization", "Mobile analytics"],
+      enterprise: ["Secure communications", "Corporate device management", "Digital ID and access"]
+    },
+    roleSpecificStrengths: {
+      startup: ["Reliable performance", "Premium build quality", "Ecosystem integration"],
+      'data-scientist': ["Neural Engine capabilities", "Processing power", "Security features"],
+      enterprise: ["MDM support", "Long software support", "Data protection"]
+    }
+  },
+  {
+    id: "samsung-s24-ultra",
+    name: "Samsung Galaxy S24 Ultra",
+    icon: "📱",
+    link: "https://www.samsung.com/galaxy-s24-ultra/",
+    tagline: "The ultimate Galaxy AI phone",
+    description: "The Galaxy S24 Ultra combines powerful AI capabilities with professional-grade camera features and S Pen functionality.",
+    useCases: [
+      "AI-powered photography and editing",
+      "Professional mobile productivity",
+      "Creative digital art with S Pen"
+    ],
+    keyFeatures: [
+      "6.8\" QHD+ Dynamic AMOLED 2X, 120Hz",
+      "Snapdragon 8 Gen 3 with 12GB RAM",
+      "200MP Main + 12MP Ultra-Wide + Dual Telephoto",
+      "45W fast charging support",
+      "Built-in S Pen with Air Command"
+    ],
+    scores: {
+      ux: 90,
+      scalability: 88,
+      ecosystem: 85,
+      cost: 65,
+      aiSupport: 95
+    },
+    roleSpecificUseCase: {
+      startup: ["AI-powered productivity", "Multi-tasking workflow", "Professional presentations"],
+      'data-scientist': ["AI model testing", "Large screen data analysis", "Mobile development"],
+      enterprise: ["Document scanning & editing", "Video conferencing", "Digital signatures"]
+    },
+    roleSpecificStrengths: {
+      startup: ["Advanced AI features", "Multitasking capability", "S Pen productivity"],
+      'data-scientist': ["AI processing power", "Large display", "DeX desktop mode"],
+      enterprise: ["Knox security", "7-year updates", "Enterprise solutions"]
     }
   }
 ];
