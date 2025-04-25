@@ -290,5 +290,203 @@ export const platforms: Platform[] = [
       'data-scientist': ["AI processing power", "Large display", "DeX desktop mode"],
       enterprise: ["Knox security", "7-year updates", "Enterprise solutions"]
     }
+  },
+  {
+    id: "nike-af1",
+    name: "Nike Air Force 1",
+    icon: "👟",
+    link: "https://nike.com",
+    tagline: "Iconic streetwear staple with endless style potential",
+    description: "A legendary basketball shoe turned streetwear icon, known for its versatile style and durability.",
+    useCases: ["Casual wear", "Streetwear", "Fashion statements", "Everyday use"],
+    keyFeatures: [
+      "Premium leather upper",
+      "Durable rubber outsole",
+      "Air cushioning",
+      "Wide range of colorways",
+      "Roomier fit for comfort"
+    ],
+    scores: {
+      ux: 90,
+      scalability: 85,
+      ecosystem: 95,
+      cost: 75,
+      aiSupport: 80
+    },
+    roleSpecificUseCase: {
+      startup: ["Brand building", "Team uniforms"],
+      "data-scientist": ["Trend analysis"],
+      enterprise: ["Corporate casual"]
+    },
+    roleSpecificStrengths: {
+      startup: ["Versatile", "Recognizable"],
+      "data-scientist": ["Consistent", "Reliable"],
+      enterprise: ["Professional", "Comfortable"]
+    }
+  },
+  {
+    id: "adidas-stan-smith",
+    name: "Adidas Stan Smith",
+    icon: "👟",
+    link: "https://adidas.com",
+    tagline: "Minimalist design meets timeless style",
+    description: "A versatile tennis shoe that became a fashion staple, known for its clean design and adaptability.",
+    useCases: ["Casual wear", "Semi-formal", "Fashion", "Daily use"],
+    keyFeatures: [
+      "Full-grain leather upper",
+      "Rubber cupsole",
+      "Classic design",
+      "Structured fit",
+      "Iconic colorways"
+    ],
+    scores: {
+      ux: 85,
+      scalability: 80,
+      ecosystem: 90,
+      cost: 85,
+      aiSupport: 75
+    },
+    roleSpecificUseCase: {
+      startup: ["Office wear", "Casual meetings"],
+      "data-scientist": ["Comfort for long hours"],
+      enterprise: ["Business casual"]
+    },
+    roleSpecificStrengths: {
+      startup: ["Clean look", "Affordable"],
+      "data-scientist": ["Comfortable", "Durable"],
+      enterprise: ["Professional", "Versatile"]
+    }
+  },
+  {
+    id: "sony-wh1000xm5",
+    name: "Sony WH-1000XM5",
+    icon: "🎧",
+    link: "https://sony.com",
+    tagline: "Industry-leading noise cancellation and sound quality",
+    description: "Premium wireless headphones with exceptional noise cancellation and long battery life.",
+    useCases: ["Travel", "Work", "Music", "Calls"],
+    keyFeatures: [
+      "30-hour battery life",
+      "Industry-leading ANC",
+      "Lightweight design",
+      "Multi-device pairing",
+      "Touch controls"
+    ],
+    scores: {
+      ux: 95,
+      scalability: 90,
+      ecosystem: 85,
+      cost: 70,
+      aiSupport: 95
+    },
+    roleSpecificUseCase: {
+      startup: ["Remote work", "Travel"],
+      "data-scientist": ["Focus work", "Long sessions"],
+      enterprise: ["Business travel", "Virtual meetings"]
+    },
+    roleSpecificStrengths: {
+      startup: ["Portable", "Versatile"],
+      "data-scientist": ["Noise isolation", "Comfort"],
+      enterprise: ["Professional", "Reliable"]
+    }
+  },
+  {
+    id: "bose-700",
+    name: "Bose 700",
+    icon: "🎧",
+    link: "https://bose.com",
+    tagline: "Crystal clear calls and premium comfort",
+    description: "Premium noise-cancelling headphones with exceptional call quality and modern design.",
+    useCases: ["Calls", "Work", "Travel", "Music"],
+    keyFeatures: [
+      "20-hour battery life",
+      "11 ANC levels",
+      "Premium build quality",
+      "Touch controls",
+      "Superior call clarity"
+    ],
+    scores: {
+      ux: 90,
+      scalability: 85,
+      ecosystem: 80,
+      cost: 75,
+      aiSupport: 90
+    },
+    roleSpecificUseCase: {
+      startup: ["Remote meetings", "Office use"],
+      "data-scientist": ["Concentration work", "Analysis"],
+      enterprise: ["Conference calls", "Business travel"]
+    },
+    roleSpecificStrengths: {
+      startup: ["Professional", "Clear communication"],
+      "data-scientist": ["Focus", "Comfort"],
+      enterprise: ["Call quality", "Build quality"]
+    }
+  },
+  {
+    id: "apple-watch",
+    name: "Apple Watch Series 9",
+    icon: "⌚",
+    link: "https://apple.com",
+    tagline: "The ultimate iPhone companion",
+    description: "Advanced smartwatch with comprehensive health tracking and seamless iOS integration.",
+    useCases: ["Health tracking", "Notifications", "Fitness", "Communication"],
+    keyFeatures: [
+      "Always-On Retina display",
+      "Comprehensive health tracking",
+      "iOS integration",
+      "18-hour battery life",
+      "Emergency features"
+    ],
+    scores: {
+      ux: 95,
+      scalability: 85,
+      ecosystem: 100,
+      cost: 70,
+      aiSupport: 90
+    },
+    roleSpecificUseCase: {
+      startup: ["Task management", "Health monitoring"],
+      "data-scientist": ["Data collection", "Health metrics"],
+      enterprise: ["Communication", "Calendar management"]
+    },
+    roleSpecificStrengths: {
+      startup: ["Connected", "Efficient"],
+      "data-scientist": ["Data rich", "Analytical"],
+      enterprise: ["Professional", "Productive"]
+    }
+  },
+  {
+    id: "garmin-venu",
+    name: "Garmin Venu 3",
+    icon: "⌚",
+    link: "https://garmin.com",
+    tagline: "Advanced fitness tracking with exceptional battery life",
+    description: "Premium fitness smartwatch with comprehensive sports analytics and long battery life.",
+    useCases: ["Sports tracking", "Health monitoring", "Training", "Navigation"],
+    keyFeatures: [
+      "14-day battery life",
+      "Advanced sports metrics",
+      "AMOLED display",
+      "GPS navigation",
+      "Sleep tracking"
+    ],
+    scores: {
+      ux: 85,
+      scalability: 90,
+      ecosystem: 80,
+      cost: 75,
+      aiSupport: 85
+    },
+    roleSpecificUseCase: {
+      startup: ["Activity tracking", "Wellness programs"],
+      "data-scientist": ["Data analysis", "Performance metrics"],
+      enterprise: ["Health initiatives", "Team activities"]
+    },
+    roleSpecificStrengths: {
+      startup: ["Durable", "Feature-rich"],
+      "data-scientist": ["Detailed metrics", "Data export"],
+      enterprise: ["Reliable", "Long-lasting"]
+    }
   }
 ];
