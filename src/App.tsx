@@ -14,6 +14,8 @@ import AboutUs from "./pages/AboutUs";
 import UseCases from "./pages/UseCases";
 import ProductStructure from "./pages/ProductStructure";
 import PricingPage from "./pages/PricingPage";
+import CompareCompanies from "./pages/CompareCompanies";
+import CompareProducts from "./pages/CompareProducts";
 
 const queryClient = new QueryClient();
 
@@ -96,6 +98,22 @@ const App = () => (
             element={
               <ProtectedRoute>
                 <PricingPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/compare/companies"
+            element={
+              <ProtectedRoute>
+                <CompareCompanies />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/compare/products"
+            element={
+              <ProtectedRoute>
+                <CompareProducts />
               </ProtectedRoute>
             }
           />

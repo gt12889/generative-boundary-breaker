@@ -1,0 +1,60 @@
+
+import React, { useState } from "react";
+import { platforms, extendedComparisons, UserRole } from "@/pages/UseCases/components/Demo/data";
+import ComparisonTabs from "@/pages/UseCases/components/Demo/ComparisonTabs";
+import ComparisonTable from "@/pages/UseCases/components/Demo/ComparisonTable";
+import RoleFilter from "@/pages/UseCases/components/Demo/RoleFilter";
+import DemoNavigation from "@/pages/UseCases/components/Demo/DemoNavigation";
+import { Button } from "@/components/ui/button";
+import { Download } from "lucide-react";
+
+// Filter only company comparisons
+const companyComparisons = extendedComparisons.filter(
+  comp => comp.id === "ev-comparison"
+);
+
+const CompareCompanies = () => {
+  const [activeTab, setActiveTab] = useState(companyComparisons[0]?.id || "");
+  const [selectedRole, setSelectedRole] = useState<UserRole>("all");
+  
+  const activeComparison = companyComparisons.find(c => c.id === activeTab) || companyComparisons[0];
+  
+  return (
+    <div className="container mx-auto px-4 py-12">
+      <h1 className="text-3xl font-bold mb-8 text-center">Company Analysis</h1>
+      
+      <DemoNavigation />
+      
+      <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-8">
+        <div className="flex justify-between items-center mb-8">
+          <RoleFilter selectedRole={selectedRole} onRoleChange={setSelectedRole} />
+          
+          <Button variant="outline" className="flex items-center gap-2">
+            <Download size={18} />
+            Download Full Report
+          </Button>
+        </div>
+        
+        <ComparisonTabs
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          comparisons={companyComparisons}
+        />
+        
+        {activeComparison && (
+          <ComparisonTable 
+            activeComparison={activeComparison} 
+            selectedRole={selectedRole}
+          />
+        )}
+        
+        <div className="mt-8 bg-gray-50 border border-gray-100 rounded-lg p-6">
+          <h3 className="text-xl font-semibold mb-4">AI Executive Summary</h3>
+          <p className="text-gray-700">{activeComparison?.aiSummary || "No summary available."}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default CompareCompanies;
