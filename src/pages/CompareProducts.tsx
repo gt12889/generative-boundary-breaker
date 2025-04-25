@@ -6,9 +6,14 @@ import ComparisonTable from "@/pages/UseCases/components/Demo/ComparisonTable";
 import RoleFilter from "@/pages/UseCases/components/Demo/RoleFilter";
 import DemoNavigation from "@/pages/UseCases/components/Demo/DemoNavigation";
 
-// Filter only product comparisons
+// Filter product comparisons (phones, note-taking, ecommerce, sneakers, headphones, wearables)
 const productComparisons = extendedComparisons.filter(
-  comp => comp.id === "phones" || comp.id === "note-taking" || comp.id === "ecommerce"
+  comp => comp.id === "phones" || 
+          comp.id === "note-taking" || 
+          comp.id === "ecommerce" || 
+          comp.id === "sneakers" || 
+          comp.id === "headphones" || 
+          comp.id === "wearables"
 );
 
 const CompareProducts = () => {
