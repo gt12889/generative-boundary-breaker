@@ -1,6 +1,5 @@
-
 import React, { useState, useRef, useEffect } from "react";
-import { Search, Check, X, BookmarkPlus, ArrowRight } from "lucide-react";
+import { Search, Check, X, BookmarkPlus, ArrowRight, Plus } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -8,21 +7,21 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { platforms, extendedComparisons } from "@/pages/UseCases/components/Demo/data";
 import DemoNavigation from "@/pages/UseCases/components/Demo/DemoNavigation";
-
-// Mock product database
 import { mockProducts } from "@/data/mockProducts";
 
 const ProductAnalysis = () => {
-  // State management
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
+  const [competitiveProducts, setCompetitiveProducts] = useState<any[]>([]);
+  const [isAddingCompetitor, setIsAddingCompetitor] = useState(false);
+  const [competitorSearchQuery, setCompetitorSearchQuery] = useState("");
+  const [filteredCompetitors, setFilteredCompetitors] = useState<any[]>([]);
   const searchRef = useRef<HTMLDivElement>(null);
 
-  // Handle search input change
   useEffect(() => {
     if (searchQuery.length > 1) {
       setFilteredProducts(
@@ -36,7 +35,6 @@ const ProductAnalysis = () => {
     }
   }, [searchQuery]);
 
-  // Handle click outside of search
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
@@ -50,31 +48,47 @@ const ProductAnalysis = () => {
     };
   }, [searchRef]);
 
-  // Select a product from search results
+  useEffect(() => {
+    if (competitorSearchQuery.length > 1) {
+      setFilteredCompetitors(
+        mockProducts.filter(product => 
+          product.name.toLowerCase().includes(competitorSearchQuery.toLowerCase()) &&
+          product.id !== selectedProduct?.id
+        )
+      );
+    }
+  }, [competitorSearchQuery, selectedProduct]);
+
   const handleSelectProduct = (product: any) => {
     setSelectedProduct(product);
     setSearchQuery(product.name);
     setIsSearching(false);
   };
 
-  // Reset the selection
   const handleReset = () => {
     setSelectedProduct(null);
     setIsConfirmed(false);
     setSearchQuery("");
   };
 
-  // Confirm the selected product
   const handleConfirm = () => {
     setIsConfirmed(true);
   };
 
-  // Toggle bookmark status
   const handleBookmark = () => {
     setIsBookmarked(!isBookmarked);
   };
 
-  // Render the search step
+  const handleAddCompetitor = (competitor: any) => {
+    setCompetitiveProducts(prev => [...prev, competitor]);
+    setIsAddingCompetitor(false);
+    setCompetitorSearchQuery("");
+  };
+
+  const handleRemoveCompetitor = (competitorId: string) => {
+    setCompetitiveProducts(prev => prev.filter(p => p.id !== competitorId));
+  };
+
   const renderSearchStep = () => (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -136,7 +150,6 @@ const ProductAnalysis = () => {
     </motion.div>
   );
 
-  // Render the confirmation card
   const renderConfirmationCard = () => (
     <AnimatePresence>
       <motion.div
@@ -190,7 +203,6 @@ const ProductAnalysis = () => {
     </AnimatePresence>
   );
 
-  // Render the product analysis panels
   const renderProductAnalysis = () => (
     <motion.div
       initial={{ opacity: 0 }}
@@ -198,7 +210,6 @@ const ProductAnalysis = () => {
       transition={{ duration: 0.6 }}
       className="grid grid-cols-1 md:grid-cols-12 gap-6"
     >
-      {/* Left panel - Product overview */}
       <motion.div 
         className="md:col-span-3 bg-muted/10 border border-border rounded-lg p-6"
         initial={{ x: -20, opacity: 0 }}
@@ -240,15 +251,25 @@ const ProductAnalysis = () => {
         </div>
       </motion.div>
       
-      {/* Middle panel - Feature breakdown */}
       <motion.div 
         className="md:col-span-5 bg-muted/10 border border-border rounded-lg p-6"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.4 }}
       >
-        <h2 className="text-xl font-bold mb-4">Feature Breakdown</h2>
-        
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-bold">Feature Breakdown</h2>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setIsAddingCompetitor(true)}
+            className="flex items-center gap-2"
+          >
+            <Plus className="h-4 w-4" />
+            Add Competitor
+          </Button>
+        </div>
+
         <div className="space-y-4">
           {selectedProduct.features.map((feature: any, index: number) => (
             <div key={index} className="bg-muted/10 rounded-lg p-4">
@@ -271,30 +292,52 @@ const ProductAnalysis = () => {
           ))}
         </div>
         
-        <div className="mt-6">
-          <h3 className="text-lg font-medium mb-3">Competitive Comparison</h3>
-          
-          {selectedProduct.competitors.map((competitor: any, index: number) => (
-            <div key={index} className="bg-muted/10 rounded-lg p-4 mb-3">
-              <div className="flex justify-between items-center mb-2">
-                <span>{competitor.name}</span>
-                <span className={`text-sm ${competitor.comparisonScore > 5 ? 'text-green-500' : 'text-destructive'}`}>
-                  {competitor.comparisonScore > 5 ? 'Better' : 'Worse'}
-                </span>
+        {competitiveProducts.length > 0 && (
+          <div className="mt-6 space-y-4">
+            <h3 className="text-lg font-medium mb-3">Competitive Analysis</h3>
+            {competitiveProducts.map((competitor) => (
+              <div key={competitor.id} className="bg-muted/10 rounded-lg p-4 relative">
+                <button
+                  onClick={() => handleRemoveCompetitor(competitor.id)}
+                  className="absolute top-2 right-2 text-muted-foreground hover:text-foreground"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+                
+                <div className="flex items-center gap-3 mb-3">
+                  <img
+                    src={competitor.image}
+                    alt={competitor.name}
+                    className="h-10 w-10 rounded object-cover"
+                  />
+                  <div>
+                    <h4 className="font-medium">{competitor.name}</h4>
+                    <p className="text-sm text-muted-foreground">{competitor.category}</p>
+                  </div>
+                </div>
+                
+                <div className="space-y-2">
+                  {competitor.features.map((feature: any, idx: number) => (
+                    <div key={idx} className="text-sm">
+                      <div className="flex justify-between mb-1">
+                        <span>{feature.name}</span>
+                        <span className="text-muted-foreground">{feature.score}/10</span>
+                      </div>
+                      <div className="w-full bg-muted/20 rounded-full h-1.5">
+                        <div 
+                          className="bg-primary h-1.5 rounded-full" 
+                          style={{ width: `${feature.score * 10}%` }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <p className="text-sm text-muted-foreground mb-2">{competitor.comparisonNote}</p>
-              <div className="w-full bg-muted/20 rounded-full h-1.5">
-                <div 
-                  className={`h-1.5 rounded-full ${competitor.comparisonScore > 5 ? 'bg-green-500' : 'bg-destructive'}`}
-                  style={{ width: `${competitor.comparisonScore * 10}%` }}
-                />
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </motion.div>
       
-      {/* Right panel - AI summary */}
       <motion.div 
         className="md:col-span-4 bg-muted/10 border border-border rounded-lg p-6"
         initial={{ x: 20, opacity: 0 }}
@@ -349,6 +392,61 @@ const ProductAnalysis = () => {
     </motion.div>
   );
 
+  const renderCompetitorSearch = () => (
+    <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center">
+      <div className="bg-card w-full max-w-md p-6 rounded-lg shadow-lg border relative">
+        <button
+          onClick={() => {
+            setIsAddingCompetitor(false);
+            setCompetitorSearchQuery("");
+          }}
+          className="absolute top-4 right-4"
+        >
+          <X className="h-4 w-4" />
+        </button>
+        
+        <h3 className="text-lg font-semibold mb-4">Add Competitive Product</h3>
+        
+        <div className="relative">
+          <Input
+            type="text"
+            placeholder="Search for a product to compare..."
+            value={competitorSearchQuery}
+            onChange={(e) => setCompetitorSearchQuery(e.target.value)}
+            className="pl-10"
+          />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        </div>
+        
+        {competitorSearchQuery.length > 1 && (
+          <div className="mt-2 max-h-64 overflow-y-auto">
+            <Command className="rounded-lg border shadow-md">
+              <CommandList>
+                <CommandEmpty>No products found.</CommandEmpty>
+                <CommandGroup heading="Products">
+                  {filteredCompetitors.map((product) => (
+                    <CommandItem
+                      key={product.id}
+                      onSelect={() => handleAddCompetitor(product)}
+                      className="flex items-center cursor-pointer"
+                    >
+                      <img 
+                        src={product.image}
+                        alt={product.name}
+                        className="h-8 w-8 mr-2 rounded object-cover"
+                      />
+                      <span>{product.name}</span>
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
   return (
     <div className="container mx-auto px-4 py-12">
       <DemoNavigation />
@@ -357,6 +455,7 @@ const ProductAnalysis = () => {
         {!selectedProduct && renderSearchStep()}
         {selectedProduct && !isConfirmed && renderConfirmationCard()}
         {selectedProduct && isConfirmed && renderProductAnalysis()}
+        {isAddingCompetitor && renderCompetitorSearch()}
       </div>
     </div>
   );
