@@ -82,8 +82,8 @@ const ProductAnalysis = () => {
       transition={{ duration: 0.5 }}
       className="max-w-3xl mx-auto text-center"
     >
-      <h1 className="text-4xl font-bold mb-6 text-white">Product Analysis</h1>
-      <p className="text-lg mb-8 text-gray-300">
+      <h1 className="text-4xl font-bold mb-6 text-foreground">Product Analysis</h1>
+      <p className="text-lg mb-8 text-muted-foreground">
         Enter a product name to analyze its features, compare with competitors, and get AI-powered recommendations.
       </p>
       
@@ -94,9 +94,9 @@ const ProductAnalysis = () => {
             placeholder="What product would you like to analyze?"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 py-6 text-lg shadow-lg bg-white/10 border-white/20 text-white placeholder:text-gray-400"
+            className="pl-10 py-6 text-lg shadow-lg"
           />
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
         </div>
         
         {isSearching && (
@@ -107,7 +107,7 @@ const ProductAnalysis = () => {
               exit={{ opacity: 0, y: -10 }}
               className="absolute mt-1 w-full z-50"
             >
-              <Command className="rounded-lg border shadow-md bg-black/80 backdrop-blur-lg border-white/10">
+              <Command className="rounded-lg border shadow-md">
                 <CommandInput placeholder="Search products..." />
                 <CommandList>
                   <CommandEmpty>No results found.</CommandEmpty>
@@ -116,7 +116,7 @@ const ProductAnalysis = () => {
                       <CommandItem
                         key={product.id}
                         onSelect={() => handleSelectProduct(product)}
-                        className="flex items-center cursor-pointer hover:bg-white/10"
+                        className="flex items-center cursor-pointer"
                       >
                         <img 
                           src={product.image}
@@ -149,51 +149,36 @@ const ProductAnalysis = () => {
         }}
         className="max-w-md mx-auto"
       >
-        <Card className="bg-white/10 border-white/20 backdrop-blur-lg text-white overflow-hidden">
+        <Card>
           <CardHeader>
-            <CardTitle className="text-2xl">Confirm Selection</CardTitle>
-            <CardDescription className="text-gray-300">Is this the product you want to analyze?</CardDescription>
+            <CardTitle>Confirm Selection</CardTitle>
+            <CardDescription>Is this the product you want to analyze?</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center space-x-4">
-              <div className="relative h-24 w-24 rounded-md overflow-hidden bg-white/5">
+              <div className="relative h-24 w-24 rounded-md overflow-hidden bg-muted/10">
                 <img
                   src={selectedProduct.image}
                   alt={selectedProduct.name}
                   className="object-cover h-full w-full"
                 />
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-tr from-purple-500/30 to-transparent"
-                  initial={{ opacity: 0 }}
-                  animate={{ 
-                    opacity: [0, 0.7, 0], 
-                    scale: [0.8, 1.05, 1]
-                  }}
-                  transition={{ 
-                    duration: 1.5,
-                    repeat: Infinity,
-                    repeatType: "loop"
-                  }}
-                />
               </div>
               <div className="space-y-1">
                 <h3 className="text-xl font-semibold">{selectedProduct.name}</h3>
-                <p className="text-sm text-gray-300">{selectedProduct.category}</p>
-                <p className="text-sm text-gray-300">ID: {selectedProduct.id}</p>
+                <p className="text-sm text-muted-foreground">{selectedProduct.category}</p>
+                <p className="text-sm text-muted-foreground">ID: {selectedProduct.id}</p>
               </div>
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">
             <Button 
               variant="outline"
-              className="border-white/20 hover:bg-white/10 text-white"
               onClick={handleReset}
             >
               <X className="mr-2 h-4 w-4" />
               Choose Different
             </Button>
             <Button 
-              className="bg-primary hover:bg-primary/80"
               onClick={handleConfirm}
             >
               <Check className="mr-2 h-4 w-4" />
@@ -215,13 +200,13 @@ const ProductAnalysis = () => {
     >
       {/* Left panel - Product overview */}
       <motion.div 
-        className="md:col-span-3 bg-white/10 border border-white/20 rounded-lg p-6 backdrop-blur-lg"
+        className="md:col-span-3 bg-muted/10 border border-border rounded-lg p-6"
         initial={{ x: -20, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
         <div className="relative mb-4">
-          <div className="h-48 w-full rounded-lg overflow-hidden bg-white/5">
+          <div className="h-48 w-full rounded-lg overflow-hidden bg-muted/10">
             <img
               src={selectedProduct.image}
               alt={selectedProduct.name}
@@ -231,51 +216,51 @@ const ProductAnalysis = () => {
           <Button
             variant="outline"
             size="icon"
-            className={`absolute top-2 right-2 bg-black/40 backdrop-blur-sm border-none hover:bg-black/60 ${isBookmarked ? 'text-primary' : 'text-white'}`}
+            className={`absolute top-2 right-2 ${isBookmarked ? 'text-primary' : 'text-muted-foreground'}`}
             onClick={handleBookmark}
           >
             <BookmarkPlus className="h-5 w-5" />
           </Button>
         </div>
         
-        <h2 className="text-xl font-bold text-white mb-2">{selectedProduct.name}</h2>
-        <div className="text-gray-300 mb-4">
+        <h2 className="text-xl font-bold mb-2">{selectedProduct.name}</h2>
+        <div className="text-muted-foreground mb-4">
           <p className="text-sm">Category: {selectedProduct.category}</p>
           <p className="text-sm">Brand: {selectedProduct.brand}</p>
           <p className="text-sm">Price: ${selectedProduct.price}</p>
         </div>
         
         <div className="space-y-2">
-          <div className="bg-white/5 rounded p-2">
-            <p className="text-sm text-gray-300">Release Date: {selectedProduct.releaseDate}</p>
+          <div className="bg-muted/10 rounded p-2">
+            <p className="text-sm text-muted-foreground">Release Date: {selectedProduct.releaseDate}</p>
           </div>
-          <div className="bg-white/5 rounded p-2">
-            <p className="text-sm text-gray-300">Rating: {selectedProduct.rating}/5</p>
+          <div className="bg-muted/10 rounded p-2">
+            <p className="text-sm text-muted-foreground">Rating: {selectedProduct.rating}/5</p>
           </div>
         </div>
       </motion.div>
       
       {/* Middle panel - Feature breakdown */}
       <motion.div 
-        className="md:col-span-5 bg-white/10 border border-white/20 rounded-lg p-6 backdrop-blur-lg"
+        className="md:col-span-5 bg-muted/10 border border-border rounded-lg p-6"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.4 }}
       >
-        <h2 className="text-xl font-bold text-white mb-4">Feature Breakdown</h2>
+        <h2 className="text-xl font-bold mb-4">Feature Breakdown</h2>
         
         <div className="space-y-4">
           {selectedProduct.features.map((feature: any, index: number) => (
-            <div key={index} className="bg-white/5 rounded-lg p-4">
-              <h3 className="text-white font-medium mb-2">{feature.name}</h3>
-              <p className="text-sm text-gray-300">{feature.description}</p>
+            <div key={index} className="bg-muted/10 rounded-lg p-4">
+              <h3 className="font-medium mb-2">{feature.name}</h3>
+              <p className="text-sm text-muted-foreground">{feature.description}</p>
               
               <div className="mt-3">
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs text-gray-400">Score</span>
-                  <span className="text-xs text-gray-400">{feature.score}/10</span>
+                  <span className="text-xs text-muted-foreground">Score</span>
+                  <span className="text-xs text-muted-foreground">{feature.score}/10</span>
                 </div>
-                <div className="w-full bg-white/10 rounded-full h-2">
+                <div className="w-full bg-muted/20 rounded-full h-2">
                   <div 
                     className="bg-primary h-2 rounded-full" 
                     style={{ width: `${feature.score * 10}%` }}
@@ -287,20 +272,20 @@ const ProductAnalysis = () => {
         </div>
         
         <div className="mt-6">
-          <h3 className="text-lg font-medium text-white mb-3">Competitive Comparison</h3>
+          <h3 className="text-lg font-medium mb-3">Competitive Comparison</h3>
           
           {selectedProduct.competitors.map((competitor: any, index: number) => (
-            <div key={index} className="bg-white/5 rounded-lg p-4 mb-3">
+            <div key={index} className="bg-muted/10 rounded-lg p-4 mb-3">
               <div className="flex justify-between items-center mb-2">
-                <span className="text-white">{competitor.name}</span>
-                <span className={`text-sm ${competitor.comparisonScore > 5 ? 'text-green-400' : 'text-red-400'}`}>
+                <span>{competitor.name}</span>
+                <span className={`text-sm ${competitor.comparisonScore > 5 ? 'text-green-500' : 'text-destructive'}`}>
                   {competitor.comparisonScore > 5 ? 'Better' : 'Worse'}
                 </span>
               </div>
-              <p className="text-sm text-gray-300 mb-2">{competitor.comparisonNote}</p>
-              <div className="w-full bg-white/10 rounded-full h-1.5">
+              <p className="text-sm text-muted-foreground mb-2">{competitor.comparisonNote}</p>
+              <div className="w-full bg-muted/20 rounded-full h-1.5">
                 <div 
-                  className={`h-1.5 rounded-full ${competitor.comparisonScore > 5 ? 'bg-green-500' : 'bg-red-500'}`}
+                  className={`h-1.5 rounded-full ${competitor.comparisonScore > 5 ? 'bg-green-500' : 'bg-destructive'}`}
                   style={{ width: `${competitor.comparisonScore * 10}%` }}
                 />
               </div>
@@ -311,22 +296,22 @@ const ProductAnalysis = () => {
       
       {/* Right panel - AI summary */}
       <motion.div 
-        className="md:col-span-4 bg-white/10 border border-white/20 rounded-lg p-6 backdrop-blur-lg"
+        className="md:col-span-4 bg-muted/10 border border-border rounded-lg p-6"
         initial={{ x: 20, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.6 }}
       >
-        <h2 className="text-xl font-bold text-white mb-4">AI-Powered Insights</h2>
+        <h2 className="text-xl font-bold mb-4">AI-Powered Insights</h2>
         
-        <div className="bg-black/30 rounded-lg p-4 mb-6">
+        <div className="bg-muted/20 rounded-lg p-4 mb-6">
           <h3 className="text-lg font-medium text-primary mb-2">Summary</h3>
-          <p className="text-gray-300 text-sm leading-relaxed">{selectedProduct.aiSummary}</p>
+          <p className="text-muted-foreground text-sm leading-relaxed">{selectedProduct.aiSummary}</p>
         </div>
         
         <div className="space-y-4">
-          <div className="bg-black/30 rounded-lg p-4">
+          <div className="bg-muted/20 rounded-lg p-4">
             <h3 className="text-lg font-medium text-primary mb-2">Best For</h3>
-            <ul className="text-gray-300 text-sm space-y-2">
+            <ul className="text-muted-foreground text-sm space-y-2">
               {selectedProduct.bestFor.map((item: string, index: number) => (
                 <li key={index} className="flex items-start">
                   <ArrowRight className="h-4 w-4 mr-2 mt-0.5 text-primary" />
@@ -336,24 +321,24 @@ const ProductAnalysis = () => {
             </ul>
           </div>
           
-          <div className="bg-black/30 rounded-lg p-4">
+          <div className="bg-muted/20 rounded-lg p-4">
             <h3 className="text-lg font-medium text-primary mb-2">Not Recommended For</h3>
-            <ul className="text-gray-300 text-sm space-y-2">
+            <ul className="text-muted-foreground text-sm space-y-2">
               {selectedProduct.notRecommendedFor.map((item: string, index: number) => (
                 <li key={index} className="flex items-start">
-                  <X className="h-4 w-4 mr-2 mt-0.5 text-red-400" />
+                  <X className="h-4 w-4 mr-2 mt-0.5 text-destructive" />
                   <span>{item}</span>
                 </li>
               ))}
             </ul>
           </div>
           
-          <div className="bg-black/30 rounded-lg p-4">
+          <div className="bg-muted/20 rounded-lg p-4">
             <h3 className="text-lg font-medium text-primary mb-2">Alternative Suggestions</h3>
-            <ul className="text-gray-300 text-sm space-y-3">
+            <ul className="text-muted-foreground text-sm space-y-3">
               {selectedProduct.alternatives.map((item: any, index: number) => (
                 <li key={index} className="flex items-start">
-                  <span className="font-medium text-white mr-1">{item.name}:</span>
+                  <span className="font-medium mr-1">{item.name}:</span>
                   <span>{item.reason}</span>
                 </li>
               ))}
@@ -369,9 +354,6 @@ const ProductAnalysis = () => {
       <DemoNavigation />
       
       <div className="min-h-screen py-12">
-        {/* Background gradient */}
-        <div className="fixed inset-0 bg-gradient-to-br from-black via-purple-950 to-black -z-10"></div>
-        
         {!selectedProduct && renderSearchStep()}
         {selectedProduct && !isConfirmed && renderConfirmationCard()}
         {selectedProduct && isConfirmed && renderProductAnalysis()}
