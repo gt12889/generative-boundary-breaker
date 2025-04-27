@@ -108,7 +108,7 @@ const ProductAnalysis = () => {
             placeholder="What product would you like to analyze?"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 py-6 text-lg shadow-lg"
+            className="pl-10 py-6 text-lg"
           />
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
         </div>
@@ -130,14 +130,19 @@ const ProductAnalysis = () => {
                       <CommandItem
                         key={product.id}
                         onSelect={() => handleSelectProduct(product)}
-                        className="flex items-center cursor-pointer"
+                        className="flex items-center gap-2 px-2 py-2 cursor-pointer"
                       >
-                        <img 
-                          src={product.image}
-                          alt={product.name}
-                          className="h-8 w-8 mr-2 rounded object-cover"
-                        />
-                        <span>{product.name}</span>
+                        <div className="h-10 w-10 rounded-md overflow-hidden flex-shrink-0 border border-border">
+                          <img 
+                            src={product.image}
+                            alt={product.name}
+                            className="h-full w-full object-cover"
+                          />
+                        </div>
+                        <div className="flex flex-col items-start">
+                          <span className="font-medium">{product.name}</span>
+                          <span className="text-xs text-muted-foreground">{product.category}</span>
+                        </div>
                       </CommandItem>
                     ))}
                   </CommandGroup>
