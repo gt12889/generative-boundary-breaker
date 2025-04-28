@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
@@ -6,6 +5,7 @@ import { Comparison, Platform, UserRole } from "./types";
 import { platforms } from "./data";
 import ComparisonRadar from "./ComparisonRadar";
 import ComparisonTableRow from "./ComparisonTableRow";
+import ComparisonSources from "./ComparisonSources";
 
 interface ComparisonTableProps {
   activeComparison: Comparison;
@@ -138,6 +138,8 @@ const ComparisonTable = ({ activeComparison, selectedRole = "all" }: ComparisonT
           </div>
         </div>
       </div>
+      
+      <ComparisonSources />
     </div>
   );
 };

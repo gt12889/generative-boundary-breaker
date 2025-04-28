@@ -488,5 +488,155 @@ export const platforms: Platform[] = [
       "data-scientist": ["Detailed metrics", "Data export"],
       enterprise: ["Reliable", "Long-lasting"]
     }
+  },
+  {
+    id: "instagram",
+    name: "Instagram",
+    icon: "📷",
+    link: "https://instagram.com",
+    tagline: "Meta-owned photo and video sharing platform with broad global reach",
+    description: "A global social media platform focusing on visual content sharing, from photos to Reels, with robust e-commerce and advertising capabilities.",
+    keyFeatures: [
+      "Photo & video posts with filters and captions",
+      "Stories & Reels for ephemeral and short-form video content",
+      "Shopping tags & in-app checkout",
+      "Direct Messaging with disappearing media",
+      "Algorithmic feed curated from follows and interests"
+    ],
+    useCases: [
+      "Personal brand & influencer content",
+      "Visual product showcases",
+      "Lifestyle storytelling",
+      "Community engagement"
+    ],
+    scores: {
+      ux: 90,
+      scalability: 95,
+      ecosystem: 85,
+      cost: 80,
+      aiSupport: 75
+    },
+    roleSpecificUseCase: {
+      startup: [
+        "Building brand presence",
+        "Engaging with target audience",
+        "Product launches"
+      ],
+      "data-scientist": [
+        "Audience insights analysis",
+        "Engagement metrics tracking",
+        "Content performance optimization"
+      ],
+      enterprise: [
+        "Large-scale marketing campaigns",
+        "Multi-product catalogs",
+        "Customer service integration"
+      ]
+    },
+    roleSpecificStrengths: {
+      startup: ["Cost-effective marketing", "Direct customer engagement", "Visual storytelling"],
+      "data-scientist": ["Rich analytics", "Demographic insights", "A/B testing"],
+      enterprise: ["Advanced ad tools", "API integration", "Scale management"]
+    }
+  },
+  {
+    id: "tiktok",
+    name: "TikTok",
+    icon: "📱",
+    link: "https://tiktok.com",
+    tagline: "Leading short-form video platform with powerful algorithmic content discovery",
+    description: "A rapidly growing social platform focused on short-form video content, known for its highly engaging algorithm and creative tools.",
+    keyFeatures: [
+      "Short-form video creation tools",
+      "AI-powered content recommendations",
+      "Built-in music and sound library",
+      "Effects and filters library",
+      "Duets and collaboration features"
+    ],
+    useCases: [
+      "Viral content creation",
+      "Brand challenges",
+      "Educational content",
+      "Entertainment"
+    ],
+    scores: {
+      ux: 92,
+      scalability: 90,
+      ecosystem: 80,
+      cost: 75,
+      aiSupport: 85
+    },
+    roleSpecificUseCase: {
+      startup: [
+        "Viral marketing campaigns",
+        "User-generated content",
+        "Brand awareness"
+      ],
+      "data-scientist": [
+        "Trend analysis",
+        "Content performance tracking",
+        "Audience behavior study"
+      ],
+      enterprise: [
+        "Influencer partnerships",
+        "Global reach campaigns",
+        "Youth market engagement"
+      ]
+    },
+    roleSpecificStrengths: {
+      startup: ["Organic reach", "Trend participation", "Creative freedom"],
+      "data-scientist": ["Engagement metrics", "Trend prediction", "User behavior insights"],
+      enterprise: ["Brand safety", "Campaign scalability", "Global presence"]
+    }
+  },
+  {
+    id: "snapchat",
+    name: "Snapchat",
+    icon: "👻",
+    link: "https://snapchat.com",
+    tagline: "Snap Inc.–owned multimedia messaging app popular for ephemeral content",
+    description: "A multimedia messaging platform known for disappearing content, AR features, and innovative social experiences.",
+    keyFeatures: [
+      "Disappearing Snaps & Stories",
+      "AR Lenses & Filters",
+      "Snap Map for location sharing",
+      "Discover section",
+      "Spectacles AR glasses integration"
+    ],
+    useCases: [
+      "Casual messaging",
+      "AR experiences",
+      "Location-based discovery",
+      "Short-form news"
+    ],
+    scores: {
+      ux: 88,
+      scalability: 85,
+      ecosystem: 75,
+      cost: 70,
+      aiSupport: 90
+    },
+    roleSpecificUseCase: {
+      startup: [
+        "AR marketing campaigns",
+        "Local business promotion",
+        "Youth engagement"
+      ],
+      "data-scientist": [
+        "AR performance analytics",
+        "Geographic data analysis",
+        "User interaction patterns"
+      ],
+      enterprise: [
+        "AR lens campaigns",
+        "Location-based marketing",
+        "Publisher content distribution"
+      ]
+    },
+    roleSpecificStrengths: {
+      startup: ["AR innovation", "Local targeting", "Young audience reach"],
+      "data-scientist": ["Location analytics", "AR metrics", "Engagement data"],
+      enterprise: ["Custom AR development", "Premium ad placement", "Publisher partnerships"]
+    }
   }
 ];

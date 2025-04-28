@@ -42,5 +42,17 @@ export const extendedComparisons: Comparison[] = [
     label: "Apple Watch vs Garmin",
     platforms: [12, 13],
     aiSummary: "Apple Watch Series 9 offers seamless iOS integration and comprehensive daily health tracking, perfect for iPhone users seeking a smart assistant on their wrist. Garmin Venu 3 stands out with exceptional battery life and detailed fitness analytics, making it the preferred choice for serious athletes and outdoor enthusiasts."
+  },
+  {
+    id: "social-media-1",
+    label: "Instagram vs TikTok",
+    platforms: [14, 15],
+    aiSummary: "Instagram leads in pure user scale and offers a mature ad-product suite with integrated shopping and direct messaging capabilities. TikTok edges out slightly on engagement and content innovation thanks to its addictive, algorithm-driven short-video feed and in-app creator tools. Brands focused on e-commerce and storytelling will favor Instagram's polished ecosystem, while those targeting viral reach and Gen Z audiences may lean into TikTok's rapid-growth dynamics."
+  },
+  {
+    id: "social-media-2",
+    label: "Instagram vs Snapchat",
+    platforms: [14, 16],
+    aiSummary: "Instagram's massive 2 billion MAU scale and robust ad-commerce tools give it a commanding advantage for marketers and creators seeking broad reach and monetization. Snapchat, with 800 million MAUs, excels in AR innovation and ephemeral engagement—its Lenses, Filters, and Snap Map deliver unique, playful experiences that drive high per-user interaction. Organizations targeting highly engaged, younger demographics or AR-driven campaigns may find Snapchat's specialized toolkit more compelling, while those prioritizing scale and integrated shopping will favor Instagram."
   }
 ];
