@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { platforms, extendedComparisons, UserRole } from "@/pages/UseCases/components/Demo/data";
+import { extendedComparisons, UserRole } from "@/pages/UseCases/components/Demo/comparisonsData";
 import ComparisonTabs from "@/pages/UseCases/components/Demo/ComparisonTabs";
 import ComparisonTable from "@/pages/UseCases/components/Demo/ComparisonTable";
 import RoleFilter from "@/pages/UseCases/components/Demo/RoleFilter";
@@ -8,16 +8,19 @@ import DemoNavigation from "@/pages/UseCases/components/Demo/DemoNavigation";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 
-// Filter only company comparisons
-const companyComparisons = extendedComparisons.filter(
-  comp => comp.id === "ev-comparison"
+// Filter for company and social media comparisons
+const socialMediaComparisons = extendedComparisons.filter(
+  comp => comp.id === "ev-comparison" || 
+          comp.id === "social-media-1" || 
+          comp.id === "social-media-2" || 
+          comp.id === "social-media-3"
 );
 
 const CompareCompanies = () => {
-  const [activeTab, setActiveTab] = useState(companyComparisons[0]?.id || "");
+  const [activeTab, setActiveTab] = useState(socialMediaComparisons[0]?.id || "");
   const [selectedRole, setSelectedRole] = useState<UserRole>("all");
   
-  const activeComparison = companyComparisons.find(c => c.id === activeTab) || companyComparisons[0];
+  const activeComparison = socialMediaComparisons.find(c => c.id === activeTab) || socialMediaComparisons[0];
   
   return (
     <div className="container mx-auto px-4 py-12">
@@ -38,7 +41,7 @@ const CompareCompanies = () => {
         <ComparisonTabs
           activeTab={activeTab}
           setActiveTab={setActiveTab}
-          comparisons={companyComparisons}
+          comparisons={socialMediaComparisons}
         />
         
         {activeComparison && (

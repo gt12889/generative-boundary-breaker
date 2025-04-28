@@ -1,3 +1,4 @@
+
 import { Comparison } from './types';
 
 export const extendedComparisons: Comparison[] = [
