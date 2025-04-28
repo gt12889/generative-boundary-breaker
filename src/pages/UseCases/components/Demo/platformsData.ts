@@ -495,48 +495,36 @@ export const platforms: Platform[] = [
     icon: "📷",
     link: "https://instagram.com",
     tagline: "Meta-owned photo and video sharing platform with broad global reach",
-    description: "A global social media platform focusing on visual content sharing, from photos to Reels, with robust e-commerce and advertising capabilities.",
+    description: "A leading social media platform focused on visual content sharing, with over 2 billion monthly active users.",
     keyFeatures: [
       "Photo & video posts with filters and captions",
       "Stories & Reels for ephemeral and short-form video content",
-      "Shopping tags & in-app checkout",
+      "Shopping tags & in-app checkout for direct e-commerce integration",
       "Direct Messaging with disappearing media",
       "Algorithmic feed curated from follows and interests"
     ],
     useCases: [
       "Personal brand & influencer content",
-      "Visual product showcases",
-      "Lifestyle storytelling",
-      "Community engagement"
+      "Visual product showcases & storefronts",
+      "Lifestyle and travel storytelling",
+      "Community engagement via polls and Q&A stickers"
     ],
     scores: {
       ux: 90,
       scalability: 95,
-      ecosystem: 85,
-      cost: 80,
-      aiSupport: 75
+      ecosystem: 90,
+      cost: 85,
+      aiSupport: 80
     },
     roleSpecificUseCase: {
-      startup: [
-        "Building brand presence",
-        "Engaging with target audience",
-        "Product launches"
-      ],
-      "data-scientist": [
-        "Audience insights analysis",
-        "Engagement metrics tracking",
-        "Content performance optimization"
-      ],
-      enterprise: [
-        "Large-scale marketing campaigns",
-        "Multi-product catalogs",
-        "Customer service integration"
-      ]
+      startup: ["Brand building", "Community engagement", "Product launches"],
+      "data-scientist": ["Audience analytics", "Engagement metrics", "Content performance"],
+      enterprise: ["Global campaigns", "Multi-product catalogs", "Customer service"]
     },
     roleSpecificStrengths: {
-      startup: ["Cost-effective marketing", "Direct customer engagement", "Visual storytelling"],
-      "data-scientist": ["Rich analytics", "Demographic insights", "A/B testing"],
-      enterprise: ["Advanced ad tools", "API integration", "Scale management"]
+      startup: ["Quick setup", "Visual storytelling", "Direct customer feedback"],
+      "data-scientist": ["Rich analytics", "API access", "Behavior tracking"],
+      enterprise: ["Scale handling", "Brand safety", "Advanced targeting"]
     }
   },
   {
@@ -544,49 +532,37 @@ export const platforms: Platform[] = [
     name: "TikTok",
     icon: "📱",
     link: "https://tiktok.com",
-    tagline: "Leading short-form video platform with powerful algorithmic content discovery",
-    description: "A rapidly growing social platform focused on short-form video content, known for its highly engaging algorithm and creative tools.",
+    tagline: "Short-form video platform known for viral trends and AI-powered recommendations",
+    description: "A rapidly growing social platform with 1.69B MAU, focused on short-form video content and creative expression.",
     keyFeatures: [
-      "Short-form video creation tools",
+      "Short-form video creation with effects",
       "AI-powered content recommendations",
-      "Built-in music and sound library",
-      "Effects and filters library",
-      "Duets and collaboration features"
+      "Duets and collaborative features",
+      "Music library and sound effects",
+      "In-app editing tools"
     ],
     useCases: [
-      "Viral content creation",
-      "Brand challenges",
-      "Educational content",
-      "Entertainment"
+      "Viral marketing campaigns",
+      "Creative content creation",
+      "Brand challenges and hashtags",
+      "Community trend participation"
     ],
     scores: {
       ux: 92,
-      scalability: 90,
-      ecosystem: 80,
-      cost: 75,
-      aiSupport: 85
+      scalability: 88,
+      ecosystem: 85,
+      cost: 82,
+      aiSupport: 90
     },
     roleSpecificUseCase: {
-      startup: [
-        "Viral marketing campaigns",
-        "User-generated content",
-        "Brand awareness"
-      ],
-      "data-scientist": [
-        "Trend analysis",
-        "Content performance tracking",
-        "Audience behavior study"
-      ],
-      enterprise: [
-        "Influencer partnerships",
-        "Global reach campaigns",
-        "Youth market engagement"
-      ]
+      startup: ["Viral marketing", "User-generated content", "Trend participation"],
+      "data-scientist": ["Content performance analysis", "Trend prediction", "Audience insights"],
+      enterprise: ["Brand awareness", "Global reach", "Youth engagement"]
     },
     roleSpecificStrengths: {
-      startup: ["Organic reach", "Trend participation", "Creative freedom"],
-      "data-scientist": ["Engagement metrics", "Trend prediction", "User behavior insights"],
-      enterprise: ["Brand safety", "Campaign scalability", "Global presence"]
+      startup: ["Organic reach", "Creative tools", "Trend leverage"],
+      "data-scientist": ["Engagement metrics", "Trend analysis", "Performance tracking"],
+      enterprise: ["Mass reach", "Brand safety", "Campaign monitoring"]
     }
   },
   {
@@ -595,48 +571,36 @@ export const platforms: Platform[] = [
     icon: "👻",
     link: "https://snapchat.com",
     tagline: "Snap Inc.–owned multimedia messaging app popular for ephemeral content",
-    description: "A multimedia messaging platform known for disappearing content, AR features, and innovative social experiences.",
+    description: "A pioneering platform for ephemeral content and AR experiences with 800M monthly active users.",
     keyFeatures: [
-      "Disappearing Snaps & Stories",
-      "AR Lenses & Filters",
-      "Snap Map for location sharing",
-      "Discover section",
+      "Disappearing Snaps & Stories (24 hr lifespan)",
+      "AR Lenses & Filters for interactive effects",
+      "Snap Map for location sharing & exploration",
+      "Discover section for publisher content",
       "Spectacles AR glasses integration"
     ],
     useCases: [
-      "Casual messaging",
-      "AR experiences",
+      "Casual photo/video messaging",
+      "Creative AR expression",
       "Location-based discovery",
-      "Short-form news"
+      "Short-form news and series"
     ],
     scores: {
       ux: 88,
-      scalability: 85,
-      ecosystem: 75,
-      cost: 70,
-      aiSupport: 90
+      scalability: 82,
+      ecosystem: 78,
+      cost: 75,
+      aiSupport: 85
     },
     roleSpecificUseCase: {
-      startup: [
-        "AR marketing campaigns",
-        "Local business promotion",
-        "Youth engagement"
-      ],
-      "data-scientist": [
-        "AR performance analytics",
-        "Geographic data analysis",
-        "User interaction patterns"
-      ],
-      enterprise: [
-        "AR lens campaigns",
-        "Location-based marketing",
-        "Publisher content distribution"
-      ]
+      startup: ["AR marketing", "Local engagement", "Youth outreach"],
+      "data-scientist": ["Location analytics", "AR performance", "User behavior"],
+      enterprise: ["Brand AR experiences", "Youth marketing", "Local campaigns"]
     },
     roleSpecificStrengths: {
-      startup: ["AR innovation", "Local targeting", "Young audience reach"],
-      "data-scientist": ["Location analytics", "AR metrics", "Engagement data"],
-      enterprise: ["Custom AR development", "Premium ad placement", "Publisher partnerships"]
+      startup: ["Innovation potential", "Youth audience", "Creative freedom"],
+      "data-scientist": ["Location data", "AR metrics", "Engagement tracking"],
+      enterprise: ["AR capabilities", "Brand safety", "Geographic targeting"]
     }
   }
 ];

@@ -54,5 +54,11 @@ export const extendedComparisons: Comparison[] = [
     label: "Instagram vs Snapchat",
     platforms: [14, 16],
     aiSummary: "Instagram's massive 2 billion MAU scale and robust ad-commerce tools give it a commanding advantage for marketers and creators seeking broad reach and monetization. Snapchat, with 800 million MAUs, excels in AR innovation and ephemeral engagement—its Lenses, Filters, and Snap Map deliver unique, playful experiences that drive high per-user interaction. Organizations targeting highly engaged, younger demographics or AR-driven campaigns may find Snapchat's specialized toolkit more compelling, while those prioritizing scale and integrated shopping will favor Instagram."
+  },
+  {
+    id: "social-media-3",
+    label: "Legacy Twitter vs X",
+    platforms: [17, 18],
+    aiSummary: "Legacy Twitter excelled at concise, real-time conversation, with a well-understood UI and a strong community around news and hashtags. Post-rebrand X has rapidly expanded into long-form content, AI chat integration, and subscription monetization—broadening its scope from microblogging to a multi-modal 'everything app'. While X's user base remains slightly below its pre-rebrand peak, its enhanced feature set and revenue options signal a strategic pivot toward deeper engagement and creator support."
   }
 ];
