@@ -1,11 +1,12 @@
+
 import React from "react";
 import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Comparison, Platform, UserRole } from "./types";
-import { platforms } from "./data";
-import ComparisonRadar from "./ComparisonRadar";
-import ComparisonTableRow from "./ComparisonTableRow";
-import ComparisonSources from "./ComparisonSources";
+import { Comparison, Platform, UserRole } from "@/pages/UseCases/components/Demo/types";
+import { platforms } from "@/pages/UseCases/components/Demo/platformsData";
+import ComparisonRadar from "@/pages/UseCases/components/Demo/ComparisonRadar";
+import ComparisonTableRow from "@/pages/UseCases/components/Demo/ComparisonTableRow";
+import ComparisonSources from "@/pages/UseCases/components/Demo/ComparisonSources";
 
 interface ComparisonTableProps {
   activeComparison: Comparison;
