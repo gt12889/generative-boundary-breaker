@@ -5,6 +5,7 @@ import ProductSearch from "./components/ProductSearch";
 import ProductConfirmation from "./components/ProductConfirmation";
 import ProductDetails from "./components/ProductDetails";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const ProductAnalysisPage = () => {
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
@@ -14,6 +15,7 @@ const ProductAnalysisPage = () => {
   const handleReset = () => {
     setSelectedProduct(null);
     setIsConfirmed(false);
+    setCompetitiveProducts([]);
   };
 
   const handleConfirm = () => {
@@ -29,10 +31,21 @@ const ProductAnalysisPage = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <DemoNavigation />
+    <div className="container mx-auto px-4 py-8">
+      <motion.div 
+        className="mb-8"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <h1 className="text-3xl font-bold mb-4 text-center">Product Analysis</h1>
+        <p className="text-center text-muted-foreground mb-6">
+          Compare features, specifications, and user experiences for popular products
+        </p>
+        <DemoNavigation />
+      </motion.div>
       
-      <div className="min-h-screen py-12">
+      <div className="min-h-screen pb-12">
         {!selectedProduct && (
           <ProductSearch onSelectProduct={setSelectedProduct} />
         )}
@@ -49,6 +62,7 @@ const ProductAnalysisPage = () => {
             competitiveProducts={competitiveProducts}
             onAddCompetitor={handleAddCompetitor}
             onRemoveCompetitor={handleRemoveCompetitor}
+            onReset={handleReset}
           />
         )}
       </div>
