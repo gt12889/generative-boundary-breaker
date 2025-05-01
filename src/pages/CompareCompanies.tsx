@@ -9,19 +9,14 @@ import DemoNavigation from "@/pages/UseCases/components/Demo/DemoNavigation";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 
-// Filter for company and social media comparisons
-const socialMediaComparisons = extendedComparisons.filter(
-  comp => comp.id === "ev-comparison" || 
-          comp.id === "social-media-1" || 
-          comp.id === "social-media-2" || 
-          comp.id === "social-media-3"
-);
+// Display all available comparisons instead of filtering
+const availableComparisons = extendedComparisons;
 
 const CompareCompanies = () => {
-  const [activeTab, setActiveTab] = useState(socialMediaComparisons[0]?.id || "");
+  const [activeTab, setActiveTab] = useState(availableComparisons[0]?.id || "");
   const [selectedRole, setSelectedRole] = useState<UserRole>("all");
   
-  const activeComparison = socialMediaComparisons.find(c => c.id === activeTab) || socialMediaComparisons[0];
+  const activeComparison = availableComparisons.find(c => c.id === activeTab) || availableComparisons[0];
   
   return (
     <div className="container mx-auto px-4 py-12">
@@ -42,7 +37,7 @@ const CompareCompanies = () => {
         <ComparisonTabs
           activeTab={activeTab}
           setActiveTab={setActiveTab}
-          comparisons={socialMediaComparisons}
+          comparisons={availableComparisons}
         />
         
         {activeComparison && (
