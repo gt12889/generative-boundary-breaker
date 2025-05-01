@@ -1,6 +1,7 @@
 
 import React, { useState } from "react";
-import { extendedComparisons, UserRole } from "@/pages/UseCases/components/Demo/comparisonsData";
+import { extendedComparisons } from "@/pages/UseCases/components/Demo/comparisonsData";
+import { UserRole } from "@/pages/UseCases/components/Demo/types";
 import ComparisonTabs from "@/pages/UseCases/components/Demo/ComparisonTabs";
 import ComparisonTable from "@/pages/UseCases/components/Demo/ComparisonTable";
 import RoleFilter from "@/pages/UseCases/components/Demo/RoleFilter";
