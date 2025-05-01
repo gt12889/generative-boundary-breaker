@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
@@ -13,7 +14,22 @@ interface ComparisonTableProps {
 }
 
 const ComparisonTable = ({ activeComparison, selectedRole = "all" }: ComparisonTableProps) => {
-  const comparisonPlatforms = activeComparison.platforms.map(index => platforms[index]);
+  // Get platform indices from the comparison
+  const platformIndices = activeComparison?.platforms || [];
+  
+  // Safely map the indices to actual platform data, filtering out any undefined platforms
+  const comparisonPlatforms = platformIndices
+    .map(index => platforms[index])
+    .filter((platform): platform is Platform => platform !== undefined);
+  
+  // Early return if we don't have valid platforms to compare
+  if (comparisonPlatforms.length === 0) {
+    return (
+      <div className="mt-8 p-6 bg-amber-50 border border-amber-200 rounded-lg text-center">
+        <p className="text-amber-800">Platform data not available for this comparison.</p>
+      </div>
+    );
+  }
   
   return (
     <div className="mt-8">
@@ -51,25 +67,25 @@ const ComparisonTable = ({ activeComparison, selectedRole = "all" }: ComparisonT
             </ul>
 
             {/* Role specific content */}
-            {selectedRole !== "all" && (
+            {selectedRole !== "all" && platform.roleSpecificUseCase && platform.roleSpecificStrengths && (
               <>
                 <h4 className="font-medium mb-2">Perfect For:</h4>
                 <ul className="mb-4 space-y-1">
-                  {platform.roleSpecificUseCase[selectedRole as keyof Platform['roleSpecificUseCase']].map((useCase, i) => (
+                  {platform.roleSpecificUseCase[selectedRole]?.map((useCase, i) => (
                     <li key={i} className="flex items-start">
                       <span className="text-blue-500 mr-2">•</span>
                       <span>{useCase}</span>
                     </li>
-                  ))}
+                  )) || <li>No specific use cases available</li>}
                 </ul>
                 
                 <h4 className="font-medium mb-2">Strengths for {selectedRole === 'data-scientist' ? 'Data Scientists' : selectedRole === 'enterprise' ? 'Enterprise' : 'Startups'}:</h4>
                 <div className="flex flex-wrap gap-2">
-                  {platform.roleSpecificStrengths[selectedRole as keyof Platform['roleSpecificStrengths']].map((strength, i) => (
+                  {platform.roleSpecificStrengths[selectedRole]?.map((strength, i) => (
                     <Badge key={i} variant="outline" className="bg-blue-50">
                       {strength}
                     </Badge>
-                  ))}
+                  )) || <span className="text-gray-500">No specific strengths available</span>}
                 </div>
               </>
             )}
@@ -91,53 +107,55 @@ const ComparisonTable = ({ activeComparison, selectedRole = "all" }: ComparisonT
         ))}
       </div>
       
-      <div className="bg-gray-50 rounded-lg border p-6 mb-8">
-        <h3 className="text-xl font-semibold mb-6">Performance Comparison</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="md:col-span-2">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Metric</TableHead>
-                  {comparisonPlatforms.map((platform) => (
-                    <TableHead key={platform.id}>{platform.name}</TableHead>
-                  ))}
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <ComparisonTableRow 
-                  label="User Experience" 
-                  metric="ux" 
-                  platforms={comparisonPlatforms}
-                />
-                <ComparisonTableRow 
-                  label="Scalability" 
-                  metric="scalability" 
-                  platforms={comparisonPlatforms}
-                />
-                <ComparisonTableRow 
-                  label="Ecosystem" 
-                  metric="ecosystem" 
-                  platforms={comparisonPlatforms}
-                />
-                <ComparisonTableRow 
-                  label="Cost Efficiency" 
-                  metric="cost" 
-                  platforms={comparisonPlatforms}
-                />
-                <ComparisonTableRow 
-                  label="AI Support" 
-                  metric="aiSupport" 
-                  platforms={comparisonPlatforms}
-                />
-              </TableBody>
-            </Table>
-          </div>
-          <div>
-            <ComparisonRadar platforms={comparisonPlatforms} />
+      {comparisonPlatforms.length >= 2 && (
+        <div className="bg-gray-50 rounded-lg border p-6 mb-8">
+          <h3 className="text-xl font-semibold mb-6">Performance Comparison</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="md:col-span-2">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Metric</TableHead>
+                    {comparisonPlatforms.map((platform) => (
+                      <TableHead key={platform.id}>{platform.name}</TableHead>
+                    ))}
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <ComparisonTableRow 
+                    label="User Experience" 
+                    metric="ux" 
+                    platforms={comparisonPlatforms}
+                  />
+                  <ComparisonTableRow 
+                    label="Scalability" 
+                    metric="scalability" 
+                    platforms={comparisonPlatforms}
+                  />
+                  <ComparisonTableRow 
+                    label="Ecosystem" 
+                    metric="ecosystem" 
+                    platforms={comparisonPlatforms}
+                  />
+                  <ComparisonTableRow 
+                    label="Cost Efficiency" 
+                    metric="cost" 
+                    platforms={comparisonPlatforms}
+                  />
+                  <ComparisonTableRow 
+                    label="AI Support" 
+                    metric="aiSupport" 
+                    platforms={comparisonPlatforms}
+                  />
+                </TableBody>
+              </Table>
+            </div>
+            <div>
+              <ComparisonRadar platforms={comparisonPlatforms} />
+            </div>
           </div>
         </div>
-      </div>
+      )}
       
       <ComparisonSources />
     </div>
