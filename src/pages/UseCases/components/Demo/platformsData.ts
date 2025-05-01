@@ -602,5 +602,134 @@ export const platforms: Platform[] = [
       "data-scientist": ["Location data", "AR metrics", "Engagement tracking"],
       enterprise: ["AR capabilities", "Brand safety", "Geographic targeting"]
     }
+  },
+  // Platform 17: Legacy Twitter
+  {
+    id: "legacy-twitter",
+    name: "Legacy Twitter",
+    icon: "🐦",
+    link: "https://twitter.com",
+    tagline: "Real-time microblogging and global conversation hub",
+    description: "Legacy Twitter was renowned for its concise, real-time discourse, powered by a minimalist user interface and a vibrant community focused on trending topics and breaking news. Its strength lay in rapid information dissemination and hashtag-driven engagement.",
+    useCases: [
+      "Breaking news",
+      "Public discourse",
+      "Live event updates",
+      "Celebrity communication",
+      "Brand engagement"
+    ],
+    keyFeatures: [
+      "280-character posts",
+      "Hashtag-driven discovery",
+      "Chronological and algorithmic timelines",
+      "Retweets and quote tweets",
+      "Verified accounts for public figures"
+    ],
+    scores: {
+      ux: 90,
+      scalability: 80,
+      ecosystem: 70,
+      cost: 90,
+      aiSupport: 50
+    },
+    roleSpecificUseCase: {
+      startup: [
+        "Building brand awareness",
+        "Customer engagement",
+        "Network building"
+      ],
+      'data-scientist': [
+        "Access to real-time data streams",
+        "Sentiment analysis",
+        "Trend identification"
+      ],
+      enterprise: [
+        "Brand management",
+        "Crisis communication",
+        "Market research"
+      ]
+    },
+    roleSpecificStrengths: {
+      startup: [
+        "Low cost entry",
+        "Viral potential",
+        "Direct customer feedback"
+      ],
+      'data-scientist': [
+        "Access to real-time data streams",
+        "Robust API for data collection",
+        "Rich metadata for user and content analysis"
+      ],
+      enterprise: [
+        "Brand visibility",
+        "Customer service",
+        "Media relations"
+      ]
+    }
+  },
+  
+  // Platform 18: X (formerly Twitter)
+  {
+    id: "x-twitter",
+    name: "X (formerly Twitter)",
+    icon: "✖️",
+    link: "https://x.com",
+    tagline: "The evolving 'everything app' with expanded functionalities",
+    description: "Under Elon Musk's leadership, Twitter underwent a significant transformation, rebranding as \"X\" with the ambition to become a comprehensive platform integrating social media, content creation, and financial services.",
+    useCases: [
+      "Content creation",
+      "Professional networking",
+      "News distribution",
+      "Community building",
+      "Monetization"
+    ],
+    keyFeatures: [
+      "Long-form posts up to 25,000 characters",
+      "Integration with Grok AI chatbot",
+      "Audio and video calling capabilities",
+      "Subscription-based monetization for creators",
+      "Job listings through X Hiring"
+    ],
+    scores: {
+      ux: 70,
+      scalability: 90,
+      ecosystem: 90,
+      cost: 60,
+      aiSupport: 90
+    },
+    roleSpecificUseCase: {
+      startup: [
+        "Product launches",
+        "Investor relations",
+        "Recruitment"
+      ],
+      'data-scientist': [
+        "Enhanced content diversity for analysis",
+        "Cross-platform user behavior studies",
+        "AI integration analysis"
+      ],
+      enterprise: [
+        "Content creation hub",
+        "Integrated communication",
+        "Professional networking"
+      ]
+    },
+    roleSpecificStrengths: {
+      startup: [
+        "Creator monetization",
+        "Integrated tools",
+        "Professional networking"
+      ],
+      'data-scientist': [
+        "Enhanced content diversity for analysis",
+        "Opportunities to study user engagement across varied media",
+        "Insights into monetization and subscription models"
+      ],
+      enterprise: [
+        "Comprehensive communication",
+        "Enhanced professional tools",
+        "Recruitment capabilities"
+      ]
+    }
   }
 ];

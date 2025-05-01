@@ -39,6 +39,18 @@ const sources: Source[] = [
     url: "https://www.5wpr.com/new/snapchat-marketing/",
     date: "March 31, 2025",
     description: "Snapchat pioneered the use of augmented reality (AR) with its lenses and filters, allowing users to add fun, interactive elements to their content."
+  },
+  {
+    name: "TechCrunch",
+    url: "https://techcrunch.com/2023/07/24/twitter-is-now-x/",
+    date: "April 15, 2025",
+    description: "Twitter's rebrand to X marks a strategic shift toward becoming a comprehensive 'everything app' integrating social media, content creation, and financial services under Elon Musk's leadership."
+  },
+  {
+    name: "Forbes",
+    url: "https://www.forbes.com/sites/qai/2023/08/17/x-vs-twitter-99-days-since-elon-musks-rebrand/",
+    date: "March 28, 2025",
+    description: "X has approximately 600 million monthly active users, with 58% under 35 years old. The platform has introduced long-form content, AI integration, and expanded monetization options."
   }
 ];
 
