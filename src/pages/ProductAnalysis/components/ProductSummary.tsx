@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { BookmarkPlus, Star, StarHalf, Check } from "lucide-react";
+import { BookmarkPlus, Star, StarHalf, Check, Smartphone } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -28,6 +28,15 @@ const ProductSummary = ({ product }: ProductSummaryProps) => {
     return stars;
   };
 
+  // Function to determine which icon to show based on product name
+  const renderProductIcon = () => {
+    const productName = product.name.toLowerCase();
+    if (productName.includes('iphone')) {
+      return <Smartphone className="h-10 w-10 text-primary absolute top-2 right-2 bg-background/70 p-1 rounded-full" />;
+    }
+    return null;
+  };
+
   return (
     <motion.div 
       className="md:col-span-3 bg-card border border-border rounded-lg p-6 shadow-sm"
@@ -36,7 +45,8 @@ const ProductSummary = ({ product }: ProductSummaryProps) => {
       transition={{ duration: 0.5, delay: 0.2 }}
     >
       <div className="relative mb-4">
-        <div className="h-48 w-full rounded-lg overflow-hidden bg-muted">
+        <div className="h-48 w-full rounded-lg overflow-hidden bg-muted flex items-center justify-center relative">
+          {renderProductIcon()}
           <img
             src={product.image}
             alt={product.name}
@@ -46,7 +56,7 @@ const ProductSummary = ({ product }: ProductSummaryProps) => {
         <Button
           variant="outline"
           size="icon"
-          className={`absolute top-2 right-2 bg-background/80 backdrop-blur-sm ${isBookmarked ? 'text-primary' : 'text-muted-foreground'}`}
+          className={`absolute top-2 left-2 bg-background/80 backdrop-blur-sm ${isBookmarked ? 'text-primary' : 'text-muted-foreground'}`}
           onClick={() => setIsBookmarked(!isBookmarked)}
         >
           <BookmarkPlus className="h-5 w-5" />
@@ -55,9 +65,9 @@ const ProductSummary = ({ product }: ProductSummaryProps) => {
       
       <h2 className="text-xl font-bold mb-2">{product.name}</h2>
       <div className="text-muted-foreground mb-4 space-y-1">
-        <p className="text-sm">Category: {product.category}</p>
-        <p className="text-sm">Brand: {product.brand}</p>
-        <p className="text-sm">Price: ${product.price}</p>
+        <p className="text-sm">Category: <span className="font-medium text-foreground">{product.category}</span></p>
+        <p className="text-sm">Brand: <span className="font-medium text-foreground">{product.brand}</span></p>
+        <p className="text-sm">Price: <span className="font-medium text-foreground">${product.price}</span></p>
       </div>
       
       <div className="flex items-center mb-4">
