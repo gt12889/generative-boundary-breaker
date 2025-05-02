@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { Plus, X, Info } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import CompetitorSearch from "./CompetitorSearch";
@@ -44,6 +44,7 @@ const ProductFeatures = ({
         </Button>
       </div>
 
+      {/* Feature breakdowns */}
       <div className="space-y-5">
         {product.features.map((feature: any, index: number) => (
           <div key={index} className="bg-muted/20 rounded-lg p-4">
@@ -81,6 +82,7 @@ const ProductFeatures = ({
         ))}
       </div>
       
+      {/* Competitive products section */}
       {competitiveProducts.length > 0 && (
         <div className="mt-8 space-y-4">
           <div className="flex justify-between items-center">
@@ -136,13 +138,16 @@ const ProductFeatures = ({
         </div>
       )}
 
-      {isAddingCompetitor && (
-        <CompetitorSearch
-          selectedProductId={product.id}
-          onClose={() => setIsAddingCompetitor(false)}
-          onAddCompetitor={onAddCompetitor}
-        />
-      )}
+      {/* CompetitorSearch modal */}
+      <AnimatePresence>
+        {isAddingCompetitor && (
+          <CompetitorSearch
+            selectedProductId={product.id}
+            onClose={() => setIsAddingCompetitor(false)}
+            onAddCompetitor={onAddCompetitor}
+          />
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };

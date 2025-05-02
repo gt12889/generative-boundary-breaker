@@ -1,10 +1,10 @@
 
 import React, { useState, useEffect } from "react";
-import { Search, X } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from "@/components/ui/command";
+import { X, Search } from "lucide-react";
 import { mockProducts } from "@/data/mockProducts";
-import { Badge } from "@/components/ui/badge";
+import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 interface CompetitorSearchProps {
   selectedProductId: string;
@@ -13,96 +13,98 @@ interface CompetitorSearchProps {
 }
 
 const CompetitorSearch = ({ selectedProductId, onClose, onAddCompetitor }: CompetitorSearchProps) => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filteredCompetitors, setFilteredCompetitors] = useState<any[]>([]);
-
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
+  
+  // Filter out the currently selected product
   useEffect(() => {
-    if (searchQuery.length > 1) {
-      setFilteredCompetitors(
-        mockProducts.filter(product => 
-          product.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
-          product.id !== selectedProductId
-        )
-      );
-    } else {
-      // When no search query, show related products from same category
-      const selectedProduct = mockProducts.find(p => p.id === selectedProductId);
-      if (selectedProduct) {
-        setFilteredCompetitors(
-          mockProducts.filter(product => 
-            product.category === selectedProduct.category &&
-            product.id !== selectedProductId
-          ).slice(0, 5)
-        );
-      }
+    const eligibleProducts = mockProducts.filter(p => p.id !== selectedProductId);
+    
+    if (!searchTerm) {
+      setFilteredProducts(eligibleProducts);
+      return;
     }
-  }, [searchQuery, selectedProductId]);
+    
+    const lowerSearchTerm = searchTerm.toLowerCase();
+    const filtered = eligibleProducts.filter(product =>
+      product.name.toLowerCase().includes(lowerSearchTerm) ||
+      product.brand.toLowerCase().includes(lowerSearchTerm) ||
+      product.category.toLowerCase().includes(lowerSearchTerm)
+    );
+    
+    setFilteredProducts(filtered);
+  }, [searchTerm, selectedProductId]);
+
+  const handleAddCompetitor = (competitor: any) => {
+    onAddCompetitor(competitor);
+    onClose();
+  };
 
   return (
-    <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center">
-      <div className="bg-card w-full max-w-md p-6 rounded-lg shadow-lg border relative">
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4"
-        >
-          <X className="h-4 w-4" />
-        </button>
-        
-        <h3 className="text-lg font-semibold mb-4">Add Competitive Product</h3>
-        <p className="text-sm text-muted-foreground mb-4">
-          Search for a product to compare or select from suggested competitors
-        </p>
-        
-        <div className="relative mb-4">
-          <Input
-            type="text"
-            placeholder="Search for a product to compare..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10"
-            autoFocus
-          />
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+    >
+      <div className="bg-card rounded-lg shadow-lg border border-border max-w-2xl w-full max-h-[80vh] overflow-hidden">
+        <div className="p-4 border-b border-border flex items-center justify-between">
+          <h3 className="text-lg font-medium">Add Competitor</h3>
+          <Button variant="ghost" size="icon" onClick={onClose}>
+            <X className="h-4 w-4" />
+          </Button>
         </div>
         
-        <div className="max-h-64 overflow-y-auto">
-          <Command className="rounded-lg border shadow-md">
-            <CommandList>
-              <CommandEmpty>No products found.</CommandEmpty>
-              <CommandGroup heading={searchQuery ? "Search Results" : "Suggested Competitors"}>
-                {filteredCompetitors.map((product) => (
-                  <CommandItem
+        <div className="p-4">
+          <div className="relative mb-4">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              type="text"
+              placeholder="Search competitors by name, brand, or category"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-9"
+            />
+          </div>
+          
+          <div className="overflow-y-auto max-h-[50vh]">
+            {filteredProducts.length === 0 ? (
+              <p className="text-center text-muted-foreground py-6">No matching competitors found</p>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {filteredProducts.map((product) => (
+                  <div 
                     key={product.id}
-                    onSelect={() => {
-                      onAddCompetitor(product);
-                      onClose();
-                    }}
-                    className="flex items-center cursor-pointer p-2"
+                    className="flex items-center border border-border/50 rounded-md p-3 hover:bg-muted/50 cursor-pointer transition-colors"
+                    onClick={() => handleAddCompetitor(product)}
                   >
-                    <div className="h-10 w-10 rounded overflow-hidden mr-3 border border-border">
-                      <img 
+                    <div className="h-12 w-12 rounded overflow-hidden flex-shrink-0 border border-border/50 mr-3">
+                      <img
                         src={product.image}
                         alt={product.name}
                         className="h-full w-full object-cover"
                       />
                     </div>
-                    <div className="flex flex-col">
-                      <span className="font-medium">{product.name}</span>
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs text-muted-foreground">{product.category}</span>
-                        <Badge variant="outline" className="text-xs">
-                          ${product.price}
-                        </Badge>
+                    <div className="overflow-hidden">
+                      <h4 className="font-medium text-sm truncate">{product.name}</h4>
+                      <div className="flex items-center text-xs text-muted-foreground mt-0.5">
+                        <span className="truncate">{product.brand}</span>
+                        <span className="mx-1">•</span>
+                        <span className="truncate">${product.price}</span>
                       </div>
                     </div>
-                  </CommandItem>
+                  </div>
                 ))}
-              </CommandGroup>
-            </CommandList>
-          </Command>
+              </div>
+            )}
+          </div>
+        </div>
+        
+        <div className="p-4 border-t border-border flex justify-end">
+          <Button variant="outline" onClick={onClose}>Cancel</Button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
