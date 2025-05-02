@@ -4,6 +4,7 @@ import { BookmarkPlus, Star, StarHalf, Check, Smartphone } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { toast } from "sonner";
 
 interface ProductSummaryProps {
   product: any;
@@ -11,6 +12,11 @@ interface ProductSummaryProps {
 
 const ProductSummary = ({ product }: ProductSummaryProps) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
+
+  const handleBookmark = () => {
+    setIsBookmarked(!isBookmarked);
+    toast.success(isBookmarked ? "Removed from bookmarks" : "Added to bookmarks");
+  };
 
   const renderStars = (rating: number) => {
     const stars = [];
@@ -30,7 +36,7 @@ const ProductSummary = ({ product }: ProductSummaryProps) => {
 
   // Function to determine which icon to show based on product name
   const renderProductIcon = () => {
-    const productName = product.name.toLowerCase();
+    const productName = product.name?.toLowerCase() || '';
     if (productName.includes('iphone')) {
       return <Smartphone className="h-10 w-10 text-primary absolute top-2 right-2 bg-background/70 p-1 rounded-full" />;
     }
@@ -57,7 +63,7 @@ const ProductSummary = ({ product }: ProductSummaryProps) => {
           variant="outline"
           size="icon"
           className={`absolute top-2 left-2 bg-background/80 backdrop-blur-sm ${isBookmarked ? 'text-primary' : 'text-muted-foreground'}`}
-          onClick={() => setIsBookmarked(!isBookmarked)}
+          onClick={handleBookmark}
         >
           <BookmarkPlus className="h-5 w-5" />
         </Button>
