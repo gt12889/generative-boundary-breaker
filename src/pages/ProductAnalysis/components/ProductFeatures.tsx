@@ -85,6 +85,16 @@ const ProductFeatures = ({
                     src={competitor.image}
                     alt={competitor.name}
                     className="h-10 w-10 object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.onerror = null;
+                      const category = competitor.category?.toLowerCase() || '';
+                      if (category.includes('phone')) {
+                        target.src = "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b";
+                      } else {
+                        target.src = "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d";
+                      }
+                    }}
                   />
                 </div>
                 <div>

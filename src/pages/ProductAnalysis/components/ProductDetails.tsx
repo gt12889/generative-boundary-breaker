@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProductSummary from "./ProductSummary";
 import ProductFeatures from "./ProductFeatures";
 import ProductInsights from "./ProductInsights";
@@ -7,10 +7,11 @@ import ProductComparison from "./ProductComparison";
 import CompetitorSearch from "./CompetitorSearch";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Share2, Download, BookmarkPlus, Check, Plus } from "lucide-react";
+import { ArrowLeft, Share2, Download, BookmarkPlus, Check, Plus, RefreshCw } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 interface ProductDetailsProps {
   product: any;
@@ -28,6 +29,17 @@ const ProductDetails = ({
   onReset
 }: ProductDetailsProps) => {
   const [isAddingCompetitor, setIsAddingCompetitor] = useState(false);
+  const [aiSummary, setAiSummary] = useState<string>("");
+  const [isGeneratingSummary, setIsGeneratingSummary] = useState(false);
+  
+  // Generate AI summary when products change
+  useEffect(() => {
+    if (competitiveProducts.length > 0) {
+      generateAiSummary();
+    } else {
+      setAiSummary("");
+    }
+  }, [competitiveProducts.length]);
   
   const handleShare = () => {
     // Mock share functionality
@@ -42,6 +54,56 @@ const ProductDetails = ({
   const handleSave = () => {
     // Mock save functionality
     toast.success("Analysis saved to your bookmarks!");
+  };
+
+  const generateAiSummary = async () => {
+    try {
+      setIsGeneratingSummary(true);
+      
+      // Create a summary prompt based on product and competitors
+      const featuresDiff = product.features.map((feature: any) => {
+        const competitorFeatures = competitiveProducts
+          .map((comp) => {
+            const matchingFeature = comp.features.find((f: any) => f.name === feature.name);
+            if (matchingFeature) {
+              return `${comp.name}: ${matchingFeature.score}/10`;
+            }
+            return null;
+          })
+          .filter(Boolean)
+          .join(", ");
+
+        return `${feature.name}: ${product.name} (${feature.score}/10) vs ${competitorFeatures}`;
+      }).join("; ");
+
+      const prompt = `
+        Provide a brief, insightful summary (max 3 sentences) of the key differences between ${product.name} and its competitors (${competitiveProducts.map(c => c.name).join(", ")}).
+        Focus on standout features and competitive advantages based on this data:
+        Price: ${product.name}: $${product.price} vs ${competitiveProducts.map(c => `${c.name}: $${c.price}`).join(", ")}.
+        Features comparison: ${featuresDiff}.
+        Be concise, objective, and highlight the most significant differences.
+      `;
+
+      // Fetch the AI-generated summary
+      const response = await fetch('/api/generate-with-ai', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to generate AI summary');
+      }
+
+      const data = await response.json();
+      setAiSummary(data.generatedText || "");
+    } catch (error) {
+      console.error('Error generating AI summary:', error);
+      toast.error("Could not generate AI summary. Please try again.");
+      setAiSummary("");
+    } finally {
+      setIsGeneratingSummary(false);
+    }
   };
 
   return (
@@ -100,6 +162,48 @@ const ProductDetails = ({
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
             >
+              {/* AI Summary Section - New Addition */}
+              {competitiveProducts.length > 0 && (
+                <div className="mb-6">
+                  <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
+                    <div className="flex justify-between items-center mb-4">
+                      <h2 className="text-xl font-semibold">AI Comparative Analysis</h2>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        onClick={generateAiSummary}
+                        disabled={isGeneratingSummary}
+                        className="flex items-center gap-2"
+                      >
+                        <RefreshCw className={`h-4 w-4 ${isGeneratingSummary ? "animate-spin" : ""}`} />
+                        Regenerate
+                      </Button>
+                    </div>
+                    
+                    {isGeneratingSummary ? (
+                      <div className="flex items-center justify-center py-4">
+                        <div className="flex items-center gap-2">
+                          <RefreshCw className="h-4 w-4 animate-spin" />
+                          <p>Generating summary...</p>
+                        </div>
+                      </div>
+                    ) : aiSummary ? (
+                      <Alert className="bg-muted/40">
+                        <AlertDescription className="text-foreground">
+                          {aiSummary}
+                        </AlertDescription>
+                      </Alert>
+                    ) : (
+                      <Alert>
+                        <AlertDescription>
+                          Click "Regenerate" to create an AI-powered comparison summary.
+                        </AlertDescription>
+                      </Alert>
+                    )}
+                  </div>
+                </div>
+              )}
+              
               <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
                 <ProductSummary product={product} />
                 <div className="md:col-span-9">

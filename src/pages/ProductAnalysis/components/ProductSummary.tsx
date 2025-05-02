@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { BookmarkPlus, Star, StarHalf, Check, Smartphone } from "lucide-react";
+import { BookmarkPlus, Star, StarHalf, Check, Smartphone, Laptop, Monitor } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -34,13 +34,32 @@ const ProductSummary = ({ product }: ProductSummaryProps) => {
     return stars;
   };
 
-  // Function to determine which icon to show based on product name
+  // Function to determine which icon to show based on product category
   const renderProductIcon = () => {
+    const productCategory = product.category?.toLowerCase() || '';
     const productName = product.name?.toLowerCase() || '';
-    if (productName.includes('iphone')) {
+    
+    if (productName.includes('iphone') || productCategory.includes('phone') || productCategory.includes('smartphone')) {
       return <Smartphone className="h-10 w-10 text-primary absolute top-2 right-2 bg-background/70 p-1 rounded-full" />;
+    } else if (productName.includes('laptop') || productCategory.includes('laptop') || productCategory.includes('notebook')) {
+      return <Laptop className="h-10 w-10 text-primary absolute top-2 right-2 bg-background/70 p-1 rounded-full" />;
+    } else if (productName.includes('monitor') || productCategory.includes('monitor') || productCategory.includes('display')) {
+      return <Monitor className="h-10 w-10 text-primary absolute top-2 right-2 bg-background/70 p-1 rounded-full" />;
     }
     return null;
+  };
+
+  // Use a high-quality placeholder image if the product image is missing or broken
+  const getFallbackImage = () => {
+    const category = product.category?.toLowerCase() || '';
+    
+    if (category.includes('phone') || category.includes('smartphone')) {
+      return "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b";
+    } else if (category.includes('laptop')) {
+      return "https://images.unsplash.com/photo-1531297484001-80022131f5a1";
+    } else {
+      return "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d";
+    }
   };
 
   return (
@@ -57,6 +76,11 @@ const ProductSummary = ({ product }: ProductSummaryProps) => {
             src={product.image}
             alt={product.name}
             className="object-cover h-full w-full"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.onerror = null; // Prevent infinite loop
+              target.src = getFallbackImage();
+            }}
           />
         </div>
         <Button
