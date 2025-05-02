@@ -1,10 +1,8 @@
 
-import React, { useState } from "react";
-import { Plus, X, Info } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import React from "react";
+import { X, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import CompetitorSearch from "./CompetitorSearch";
 
 interface ProductFeaturesProps {
   product: any;
@@ -19,29 +17,11 @@ const ProductFeatures = ({
   onAddCompetitor,
   onRemoveCompetitor
 }: ProductFeaturesProps) => {
-  const [isAddingCompetitor, setIsAddingCompetitor] = useState(false);
-
   return (
-    <motion.div 
-      className="md:col-span-5 bg-card border border-border rounded-lg p-6 shadow-sm"
-      initial={{ y: 20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, delay: 0.4 }}
-    >
-      <div className="flex justify-between items-center mb-6">
-        <div>
-          <h2 className="text-xl font-bold">Feature Breakdown</h2>
-          <p className="text-sm text-muted-foreground mt-1">Detailed analysis of product capabilities</p>
-        </div>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => setIsAddingCompetitor(true)}
-          className="flex items-center gap-2"
-        >
-          <Plus className="h-4 w-4" />
-          Add Competitor
-        </Button>
+    <div className="space-y-6">
+      <div>
+        <h2 className="text-xl font-bold mb-2">Feature Breakdown</h2>
+        <p className="text-sm text-muted-foreground">Detailed analysis of product capabilities</p>
       </div>
 
       {/* Feature breakdowns */}
@@ -137,18 +117,7 @@ const ProductFeatures = ({
           ))}
         </div>
       )}
-
-      {/* CompetitorSearch modal */}
-      <AnimatePresence>
-        {isAddingCompetitor && (
-          <CompetitorSearch
-            selectedProductId={product.id}
-            onClose={() => setIsAddingCompetitor(false)}
-            onAddCompetitor={onAddCompetitor}
-          />
-        )}
-      </AnimatePresence>
-    </motion.div>
+    </div>
   );
 };
 
