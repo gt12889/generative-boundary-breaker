@@ -5,4 +5,5 @@ export const usageData = [
   { date: 'Mar', visitors: 210, comparisons: 180 },
   { date: 'Apr', visitors: 235, comparisons: 205 },
   { date: 'May', visitors: 280, comparisons: 250 },
+  { date: 'Jun', visitors: 310, comparisons: 275 },
 ];
