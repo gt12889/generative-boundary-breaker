@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import { Skeleton } from "@/components/ui/skeleton";
+import { LoaderCircle } from "lucide-react";
 
 const PromptPage = () => {
   const [prompt, setPrompt] = useState("");
@@ -82,6 +84,7 @@ const PromptPage = () => {
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             className="min-h-[120px] text-lg"
+            disabled={isLoading}
           />
           <div className="flex justify-center">
             <Button
@@ -89,9 +92,29 @@ const PromptPage = () => {
               className="px-8 py-6 rounded-full bg-rose-600 text-white font-medium hover:bg-rose-700 transition-colors"
               disabled={isLoading}
             >
-              {isLoading ? "Generating..." : "Generate Response"}
+              {isLoading ? (
+                <>
+                  <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
+                  Generating...
+                </>
+              ) : (
+                "Generate Response"
+              )}
             </Button>
           </div>
+          
+          {isLoading && !aiResponse && (
+            <div className="mt-8 p-6 rounded-2xl bg-white shadow-lg">
+              <h3 className="text-xl font-semibold mb-4">Generating response...</h3>
+              <div className="space-y-3">
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-[90%]" />
+                <Skeleton className="h-4 w-[95%]" />
+                <Skeleton className="h-4 w-[85%]" />
+              </div>
+            </div>
+          )}
+          
           {aiResponse && (
             <div className="mt-8 p-6 rounded-2xl bg-white shadow-lg">
               <h3 className="text-xl font-semibold mb-4">AI Response:</h3>
