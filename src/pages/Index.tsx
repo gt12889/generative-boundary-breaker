@@ -1,10 +1,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { Link } from "react-router-dom";
 import Header from "./Index/components/Header";
 import Features from "./Index/components/Features";
 import GetStarted from "./Index/components/GetStarted";
 import UserNav from "./Index/components/UserNav";
+import { Button } from "@/components/ui/button";
+import { ChartLineUp } from "lucide-react";
 
 const Index = () => {
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -54,6 +57,14 @@ const Index = () => {
         <div className="container mx-auto">
           <div className="max-w-4xl mx-auto text-center">
             <Header />
+            <div className="mt-8 flex justify-center gap-4">
+              <Link to="/dashboard">
+                <Button className="flex items-center gap-2">
+                  <ChartLineUp className="w-4 h-4" />
+                  View Dashboard
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>

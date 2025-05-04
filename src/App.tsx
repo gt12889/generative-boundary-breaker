@@ -17,6 +17,7 @@ import PricingPage from "./pages/PricingPage";
 import CompareCompanies from "./pages/CompareCompanies";
 import CompareProducts from "./pages/CompareProducts";
 import ProductAnalysis from "./pages/ProductAnalysis";
+import Dashboard from "./pages/Dashboard";
 
 // Create a new QueryClient instance
 const queryClient = new QueryClient({
@@ -133,6 +134,14 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <ProductAnalysis />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
                 </ProtectedRoute>
               }
             />
