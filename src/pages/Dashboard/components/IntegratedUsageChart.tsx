@@ -7,7 +7,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ExternalLink, ChartLine, Plus, X } from 'lucide-react';
+import { ExternalLink, ChartLine, Plus } from 'lucide-react';
+import ProductTrendCharts from './ProductTrends';
 
 interface TrafficSource {
   name: string;
@@ -39,85 +40,7 @@ const IntegratedUsageChart = ({
 }: IntegratedUsageChartProps) => {
   const [selectedTab, setSelectedTab] = useState("usage");
   const [showSource, setShowSource] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState(Object.keys(productTrendData)[0]);
-  const [newProduct, setNewProduct] = useState("");
-  const [customProducts, setCustomProducts] = useState<string[]>([]);
-  const [displayedProducts, setDisplayedProducts] = useState<string[]>(Object.keys(productTrendData).slice(0, 2));
   
-  // Combine all available products (predefined + custom)
-  const allProducts = [...Object.keys(productTrendData), ...customProducts];
-
-  const handleAddProduct = () => {
-    if (newProduct && !customProducts.includes(newProduct) && !Object.keys(productTrendData).includes(newProduct)) {
-      setCustomProducts([...customProducts, newProduct]);
-      setDisplayedProducts([...displayedProducts, newProduct]);
-      setNewProduct("");
-    }
-  };
-
-  const handleRemoveProduct = (product: string) => {
-    setDisplayedProducts(displayedProducts.filter(p => p !== product));
-    if (customProducts.includes(product)) {
-      setCustomProducts(customProducts.filter(p => p !== product));
-    }
-    if (selectedProduct === product) {
-      setSelectedProduct(displayedProducts[0] !== product ? displayedProducts[0] : displayedProducts[1] || Object.keys(productTrendData)[0]);
-    }
-  };
-
-  const toggleProductDisplay = (product: string) => {
-    if (displayedProducts.includes(product)) {
-      if (displayedProducts.length > 1) {
-        handleRemoveProduct(product);
-      }
-    } else {
-      setDisplayedProducts([...displayedProducts, product]);
-    }
-  };
-
-  const getProductColor = (productName: string) => {
-    return productColors[productName as keyof typeof productColors] || productColors.default;
-  };
-  
-  // Generate mock data for custom products if they don't exist in productTrendData
-  const getProductData = (productName: string) => {
-    if (productName in productTrendData) {
-      return productTrendData[productName];
-    }
-    
-    // Generate random data for custom products
-    return [
-      { date: 'Jan', interest: Math.floor(Math.random() * 50) + 30 },
-      { date: 'Feb', interest: Math.floor(Math.random() * 50) + 30 },
-      { date: 'Mar', interest: Math.floor(Math.random() * 50) + 30 },
-      { date: 'Apr', interest: Math.floor(Math.random() * 50) + 30 },
-      { date: 'May', interest: Math.floor(Math.random() * 50) + 30 },
-      { date: 'Jun', interest: Math.floor(Math.random() * 50) + 30 },
-    ];
-  };
-
-  // Combine data for comparison chart
-  const combinedData = (() => {
-    const result: Record<string, any>[] = [];
-    const dates = productTrendData[Object.keys(productTrendData)[0]].map(item => item.date);
-    
-    dates.forEach(date => {
-      const dataPoint: Record<string, any> = { date };
-      
-      displayedProducts.forEach(product => {
-        const productItems = getProductData(product);
-        const item = productItems.find(i => i.date === date);
-        if (item) {
-          dataPoint[product] = item.interest;
-        }
-      });
-      
-      result.push(dataPoint);
-    });
-    
-    return result;
-  })();
-
   return (
     <Card className="shadow-md">
       <CardHeader>
@@ -195,131 +118,26 @@ const IntegratedUsageChart = ({
             </div>
           </TabsContent>
           
-          {/* Individual Product Trends Tab */}
-          <TabsContent value="products" className="space-y-4">
-            <div className="flex flex-wrap gap-2 mb-4">
-              {allProducts.map(product => (
-                <Button 
-                  key={product}
-                  variant={selectedProduct === product ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setSelectedProduct(product)}
-                  style={{ borderColor: getProductColor(product), borderWidth: selectedProduct === product ? 0 : 1 }}
-                >
-                  {product}
-                </Button>
-              ))}
-            </div>
-            
-            <div className="h-[400px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={getProductData(selectedProduct)}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                  <XAxis dataKey="date" />
-                  <YAxis />
-                  <Tooltip 
-                    content={({ active, payload, label }) => {
-                      if (active && payload && payload.length) {
-                        return (
-                          <div className="bg-white p-3 border shadow rounded">
-                            <p className="font-medium">{label}</p>
-                            <p style={{ color: getProductColor(selectedProduct) }}>
-                              {selectedProduct}: {payload[0].value}
-                            </p>
-                          </div>
-                        );
-                      }
-                      return null;
-                    }}
-                  />
-                  <Legend />
-                  <Line 
-                    type="monotone" 
-                    dataKey="interest" 
-                    name={selectedProduct} 
-                    stroke={getProductColor(selectedProduct)} 
-                    strokeWidth={2} 
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
+          {/* Product Trends Tabs - using the refactored component */}
+          <TabsContent value="products">
+            <ProductTrendCharts
+              productData={productTrendData}
+              timeRange={timeRange}
+              onTimeRangeChange={onTimeRangeChange}
+              trafficSource={trafficSource}
+            />
           </TabsContent>
           
-          {/* Product Comparison Tab */}
+          {/* Product Comparison Tab - also using the refactored component */}
           <TabsContent value="comparison">
-            <div className="flex flex-wrap gap-2 mb-4">
-              {allProducts.map(product => (
-                <Button 
-                  key={product}
-                  variant={displayedProducts.includes(product) ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => toggleProductDisplay(product)}
-                  style={{ 
-                    backgroundColor: displayedProducts.includes(product) ? getProductColor(product) : 'transparent',
-                    color: displayedProducts.includes(product) ? 'white' : undefined,
-                  }}
-                >
-                  {product}
-                  {displayedProducts.includes(product) && displayedProducts.length > 1 && (
-                    <X className="h-3 w-3 ml-1" />
-                  )}
-                </Button>
-              ))}
-            </div>
-            
-            <div className="h-[400px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={combinedData}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                  <XAxis dataKey="date" />
-                  <YAxis />
-                  <Tooltip 
-                    content={({ active, payload, label }) => {
-                      if (active && payload && payload.length) {
-                        return (
-                          <div className="bg-white p-3 border shadow rounded">
-                            <p className="font-medium">{label}</p>
-                            {payload.map((entry, index) => (
-                              <p key={index} style={{ color: entry.color }}>
-                                {entry.name}: {entry.value}
-                              </p>
-                            ))}
-                          </div>
-                        );
-                      }
-                      return null;
-                    }}
-                  />
-                  <Legend />
-                  {displayedProducts.map(product => (
-                    <Line 
-                      key={product}
-                      type="monotone" 
-                      dataKey={product} 
-                      name={product} 
-                      stroke={getProductColor(product)} 
-                      strokeWidth={2} 
-                    />
-                  ))}
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
+            <ProductTrendCharts
+              productData={productTrendData}
+              timeRange={timeRange}
+              onTimeRangeChange={onTimeRangeChange}
+              trafficSource={trafficSource}
+            />
           </TabsContent>
         </Tabs>
-        
-        <div className="flex items-center gap-2 mt-6">
-          <Input 
-            placeholder="Add new product..." 
-            value={newProduct} 
-            onChange={(e) => setNewProduct(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleAddProduct()}
-            className="max-w-xs"
-          />
-          <Button onClick={handleAddProduct} variant="outline" size="sm">
-            <Plus className="h-4 w-4 mr-1" />
-            Add
-          </Button>
-        </div>
         
         {showSource && (
           <div className="mt-4 p-3 bg-gray-50 rounded-md text-sm">

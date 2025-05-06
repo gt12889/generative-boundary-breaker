@@ -9,7 +9,13 @@ export const usageData = [
   { date: 'Jun', visitors: 310, comparisons: 275, webTraffic: 345 },
 ];
 
-export const trafficSource = {
+export interface TrafficSource {
+  name: string;
+  url: string;
+  description: string;
+}
+
+export const trafficSource: TrafficSource = {
   name: "Google Trends",
   url: "https://trends.google.com/trends/",
   description: "Data represents relative search interest for selected company/product"
