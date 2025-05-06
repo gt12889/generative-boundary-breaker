@@ -3,12 +3,11 @@ import { useState } from "react";
 import DashboardLayout from "./Dashboard/layout/DashboardLayout";
 import StatsCards from "./Dashboard/components/StatsCards";
 import ComparisonStats from "./Dashboard/components/ComparisonStats";
-import UsageChart from "./Dashboard/components/UsageChart";
+import IntegratedUsageChart from "./Dashboard/components/IntegratedUsageChart";
 import FeedbackTrends from "./Dashboard/components/FeedbackTrends";
-import ProductTrendCharts from "./Dashboard/components/ProductTrendCharts";
 
 // Mock data
-import { usageData, productTrendData } from "./Dashboard/data/usageData";
+import { usageData, productTrendData, trafficSource, productColors } from "./Dashboard/data/usageData";
 import { feedbackData } from "./Dashboard/data/feedbackData";
 import { companyData, productData } from "./Dashboard/data/comparisonData";
 
@@ -36,16 +35,13 @@ const Dashboard = () => {
       </div>
       
       <div className="grid grid-cols-1 gap-8">
-        <UsageChart 
-          data={usageData} 
-          timeRange={timeRange} 
-          onTimeRangeChange={setTimeRange} 
-        />
-
-        <ProductTrendCharts
-          productData={productTrendData}
+        <IntegratedUsageChart 
+          usageData={usageData}
+          productTrendData={productTrendData}
+          productColors={productColors}
           timeRange={timeRange}
           onTimeRangeChange={setTimeRange}
+          trafficSource={trafficSource}
         />
 
         <FeedbackTrends data={feedbackData} />
