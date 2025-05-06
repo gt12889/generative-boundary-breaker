@@ -5,9 +5,10 @@ import StatsCards from "./Dashboard/components/StatsCards";
 import ComparisonStats from "./Dashboard/components/ComparisonStats";
 import UsageChart from "./Dashboard/components/UsageChart";
 import FeedbackTrends from "./Dashboard/components/FeedbackTrends";
+import ProductTrendCharts from "./Dashboard/components/ProductTrendCharts";
 
 // Mock data
-import { usageData } from "./Dashboard/data/usageData";
+import { usageData, productTrendData } from "./Dashboard/data/usageData";
 import { feedbackData } from "./Dashboard/data/feedbackData";
 import { companyData, productData } from "./Dashboard/data/comparisonData";
 
@@ -39,6 +40,12 @@ const Dashboard = () => {
           data={usageData} 
           timeRange={timeRange} 
           onTimeRangeChange={setTimeRange} 
+        />
+
+        <ProductTrendCharts
+          productData={productTrendData}
+          timeRange={timeRange}
+          onTimeRangeChange={setTimeRange}
         />
 
         <FeedbackTrends data={feedbackData} />
