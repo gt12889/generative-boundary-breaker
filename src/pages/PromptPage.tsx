@@ -5,12 +5,20 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
-import { LoaderCircle } from "lucide-react";
+import { LoaderCircle, Sparkles, List, LayoutGrid, Sliders } from "lucide-react";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Slider } from "@/components/ui/slider";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Badge } from "@/components/ui/badge";
 
 const PromptPage = () => {
   const [prompt, setPrompt] = useState("");
   const [aiResponse, setAiResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [viewMode, setViewMode] = useState("summary");
+  const [creativityLevel, setCreativityLevel] = useState([50]);
+  const [priorityFactor, setPriorityFactor] = useState("balanced");
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -31,7 +39,11 @@ const PromptPage = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ prompt }),
+        body: JSON.stringify({ 
+          prompt,
+          creativity: creativityLevel[0],
+          priority: priorityFactor 
+        }),
       });
 
       if (!response.ok) {
@@ -57,20 +69,29 @@ const PromptPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-rose-50 to-white p-8">
-      <Button
-        variant="outline"
-        onClick={() => navigate("/")}
-        className="mb-8"
-      >
-        Back to Home
-      </Button>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="outline"
+              onClick={() => navigate("/")}
+              className="mb-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+            >
+              Back to Home
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            Return to homepage
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
       
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <span className="text-rose-600 font-medium tracking-wider text-sm uppercase">
             AI Prompt
           </span>
-          <h2 className="mt-6 text-4xl font-bold text-gray-900">
+          <h2 className="mt-6 text-4xl font-bold text-gray-900 font-heading">
             Experience AI in Action
           </h2>
           <p className="mt-4 text-xl text-gray-600">
@@ -83,28 +104,135 @@ const PromptPage = () => {
             placeholder="Enter your prompt here..."
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            className="min-h-[120px] text-lg"
+            className="min-h-[120px] text-lg rounded-2xl border-gray-200 focus:border-rose-500 transition-all duration-300 shadow-sm hover:shadow"
             disabled={isLoading}
           />
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-4 bg-white p-4 rounded-2xl shadow-soft">
+              <h3 className="font-medium flex items-center gap-2">
+                <Sliders className="h-4 w-4 text-rose-500" />
+                Creativity Level
+              </h3>
+              <Slider
+                value={creativityLevel}
+                onValueChange={setCreativityLevel}
+                max={100}
+                step={10}
+                className="my-4"
+              />
+              <div className="flex justify-between text-sm text-gray-500">
+                <span>Conservative</span>
+                <Badge variant={creativityLevel[0] <= 30 ? "default" : "outline"}>
+                  {creativityLevel[0]}%
+                </Badge>
+                <span>Creative</span>
+              </div>
+            </div>
+            
+            <div className="space-y-4 bg-white p-4 rounded-2xl shadow-soft">
+              <h3 className="font-medium">Priority Factor</h3>
+              <RadioGroup 
+                value={priorityFactor} 
+                onValueChange={setPriorityFactor}
+                className="flex gap-4"
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="speed" id="r1" />
+                  <label htmlFor="r1" className="text-sm">Speed</label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="balanced" id="r2" />
+                  <label htmlFor="r2" className="text-sm">Balanced</label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="quality" id="r3" />
+                  <label htmlFor="r3" className="text-sm">Quality</label>
+                </div>
+              </RadioGroup>
+            </div>
+          </div>
+          
           <div className="flex justify-center">
             <Button
               onClick={handleGenerate}
-              className="px-8 py-6 rounded-full bg-rose-600 text-white font-medium hover:bg-rose-700 transition-colors"
+              className="px-8 py-6 rounded-full bg-rose-600 text-white font-medium hover:bg-rose-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group"
               disabled={isLoading}
             >
               {isLoading ? (
                 <>
-                  <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
+                  <LoaderCircle className="mr-2 h-5 w-5 animate-spin" />
                   Generating...
                 </>
               ) : (
-                "Generate Response"
+                <>
+                  Generate Response
+                  <Sparkles className="ml-2 h-4 w-4 transition-all duration-300 group-hover:rotate-12" />
+                </>
               )}
             </Button>
           </div>
           
+          {aiResponse && (
+            <div className="mt-8">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-semibold">AI Response:</h3>
+                <ToggleGroup type="single" value={viewMode} onValueChange={(value) => value && setViewMode(value)}>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <ToggleGroupItem value="summary" aria-label="Toggle summary view" className="transition-all duration-300">
+                          <List className="h-4 w-4" />
+                        </ToggleGroupItem>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        Summary View
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <ToggleGroupItem value="detailed" aria-label="Toggle detailed view" className="transition-all duration-300">
+                          <LayoutGrid className="h-4 w-4" />
+                        </ToggleGroupItem>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        Detailed View
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </ToggleGroup>
+              </div>
+              
+              <div className="p-6 rounded-2xl bg-white shadow-soft">
+                {viewMode === "summary" ? (
+                  <p className="text-gray-700 whitespace-pre-wrap">{aiResponse}</p>
+                ) : (
+                  <div className="space-y-4">
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      <Badge variant="pro" className="animate-fade-in">Key Point 1</Badge>
+                      <Badge variant="pro" className="animate-fade-in" style={{ animationDelay: "0.1s" }}>Key Point 2</Badge>
+                      <Badge variant="con" className="animate-fade-in" style={{ animationDelay: "0.2s" }}>Consideration</Badge>
+                    </div>
+                    <p className="text-gray-700 whitespace-pre-wrap">{aiResponse}</p>
+                    <div className="border-t pt-4 mt-4">
+                      <h4 className="font-medium mb-2">Related Topics:</h4>
+                      <div className="flex flex-wrap gap-2">
+                        <Badge variant="neutral" className="animate-slide-in">Topic 1</Badge>
+                        <Badge variant="neutral" className="animate-slide-in" style={{ animationDelay: "0.1s" }}>Topic 2</Badge>
+                        <Badge variant="neutral" className="animate-slide-in" style={{ animationDelay: "0.2s" }}>Topic 3</Badge>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+          
           {isLoading && !aiResponse && (
-            <div className="mt-8 p-6 rounded-2xl bg-white shadow-lg">
+            <div className="mt-8 p-6 rounded-2xl bg-white shadow-soft">
               <h3 className="text-xl font-semibold mb-4">Generating response...</h3>
               <div className="space-y-3">
                 <Skeleton className="h-4 w-full" />
@@ -112,13 +240,6 @@ const PromptPage = () => {
                 <Skeleton className="h-4 w-[95%]" />
                 <Skeleton className="h-4 w-[85%]" />
               </div>
-            </div>
-          )}
-          
-          {aiResponse && (
-            <div className="mt-8 p-6 rounded-2xl bg-white shadow-lg">
-              <h3 className="text-xl font-semibold mb-4">AI Response:</h3>
-              <p className="text-gray-700 whitespace-pre-wrap">{aiResponse}</p>
             </div>
           )}
         </div>
