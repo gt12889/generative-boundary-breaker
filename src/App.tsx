@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
@@ -60,94 +61,96 @@ const App = () => {
   return (
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <Routes>
-            <Route path="/auth" element={<Auth />} />
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <Index />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/prompt"
-              element={
-                <ProtectedRoute>
-                  <PromptPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/about"
-              element={
-                <ProtectedRoute>
-                  <AboutUs />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/use-cases"
-              element={
-                <ProtectedRoute>
-                  <UseCases />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/product-structure"
-              element={
-                <ProtectedRoute>
-                  <ProductStructure />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/pricing"
-              element={
-                <ProtectedRoute>
-                  <PricingPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/compare/companies"
-              element={
-                <ProtectedRoute>
-                  <CompareCompanies />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/compare/products"
-              element={
-                <ProtectedRoute>
-                  <CompareProducts />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/product-analysis"
-              element={
-                <ProtectedRoute>
-                  <ProductAnalysis />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </TooltipProvider>
+        <ThemeProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <Routes>
+              <Route path="/auth" element={<Auth />} />
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <Index />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/prompt"
+                element={
+                  <ProtectedRoute>
+                    <PromptPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/about"
+                element={
+                  <ProtectedRoute>
+                    <AboutUs />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/use-cases"
+                element={
+                  <ProtectedRoute>
+                    <UseCases />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/product-structure"
+                element={
+                  <ProtectedRoute>
+                    <ProductStructure />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/pricing"
+                element={
+                  <ProtectedRoute>
+                    <PricingPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/compare/companies"
+                element={
+                  <ProtectedRoute>
+                    <CompareCompanies />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/compare/products"
+                element={
+                  <ProtectedRoute>
+                    <CompareProducts />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/product-analysis"
+                element={
+                  <ProtectedRoute>
+                    <ProductAnalysis />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </TooltipProvider>
+        </ThemeProvider>
       </QueryClientProvider>
     </BrowserRouter>
   );
