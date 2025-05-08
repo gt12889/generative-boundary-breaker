@@ -11,11 +11,12 @@ const Header = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
+      className="space-y-6"
     >
-      <span className="text-rose-600 font-medium tracking-wider text-sm uppercase">
+      <span className="inline-flex text-rose-600 font-medium tracking-wider text-sm uppercase bg-rose-50 px-4 py-1 rounded-full">
         Welcome to GenAI Ventures
       </span>
-      <h1 className="mt-6 text-5xl md:text-7xl font-bold tracking-tight text-gray-900">
+      <h1 className="mt-6 text-5xl md:text-7xl font-bold tracking-tight text-gray-900 font-heading">
         <span className="text-reveal">
           <span>Breaking Boundaries</span>
         </span>
@@ -31,14 +32,17 @@ const Header = () => {
       <div className="mt-10 flex justify-center gap-4">
         <Button 
           onClick={() => navigate("/prompt")}
-          className="px-8 py-3 rounded-full bg-rose-600 text-white font-medium hover:bg-rose-700 transition-colors"
+          variant="pill"
+          size="lg"
+          className="px-8 py-6 bg-rose-600 text-white hover:bg-rose-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
         >
           Get Started
         </Button>
         <Button
           variant="outline" 
           onClick={() => navigate("/about")}
-          className="px-8 py-3 rounded-full border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+          size="lg"
+          className="px-8 py-6 rounded-full border border-gray-300 text-gray-700 hover:bg-gray-50 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
         >
           Learn More
         </Button>
