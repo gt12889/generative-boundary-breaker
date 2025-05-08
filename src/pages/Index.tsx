@@ -59,7 +59,7 @@ const Index = () => {
             <Header />
             <div className="mt-8 flex justify-center gap-4">
               <Link to="/dashboard">
-                <Button className="flex items-center gap-2">
+                <Button className="flex items-center gap-2 transition-all hover:translate-y-[-2px] hover:shadow-md animate-fade-in">
                   <ChartLine className="w-4 h-4" />
                   View Dashboard
                 </Button>
