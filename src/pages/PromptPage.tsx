@@ -10,6 +10,7 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Badge } from "@/components/ui/badge";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const PromptPage = () => {
   const [prompt, setPrompt] = useState("");
@@ -66,29 +67,33 @@ const PromptPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-rose-50 to-white p-8">
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="outline"
-              onClick={() => navigate("/")}
-              className="mb-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
-            >
-              Back to Home
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            Return to homepage
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-      
       <div className="max-w-4xl mx-auto">
+        <div className="flex justify-between items-center mb-8">
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="outline"
+                  onClick={() => navigate("/")}
+                  className="transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+                >
+                  Back to Home
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                Return to homepage
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+          
+          <ThemeToggle />
+        </div>
+        
         <div className="text-center mb-12">
-          <span className="text-rose-600 font-medium tracking-wider text-sm uppercase">
+          <span className="text-rose-600 font-medium tracking-wider text-sm uppercase animate-fade-in">
             AI Prompt
           </span>
-          <h2 className="mt-6 text-4xl font-bold text-gray-900 font-heading">
+          <h2 className="mt-6 text-4xl font-bold text-gray-900 md:text-5xl font-heading">
             Experience AI in Action
           </h2>
           <p className="mt-4 text-xl text-gray-600">
@@ -96,7 +101,7 @@ const PromptPage = () => {
           </p>
         </div>
         
-        <div className="space-y-6">
+        <div className="space-y-8">
           <Textarea
             placeholder="Enter your prompt here..."
             value={prompt}
@@ -105,24 +110,24 @@ const PromptPage = () => {
             disabled={isLoading}
           />
           
-          <div className="space-y-4 bg-white p-4 rounded-2xl shadow-soft">
-            <h3 className="font-medium">Priority Factor</h3>
+          <div className="space-y-4 bg-white p-6 rounded-2xl shadow-soft">
+            <h3 className="font-medium text-lg font-heading">Priority Factor</h3>
             <RadioGroup 
               value={priorityFactor} 
               onValueChange={setPriorityFactor}
-              className="flex gap-4"
+              className="flex flex-wrap gap-6"
             >
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="speed" id="r1" />
-                <label htmlFor="r1" className="text-sm">Speed</label>
+              <div className="flex items-center space-x-3">
+                <RadioGroupItem value="speed" id="r1" className="text-rose-500" />
+                <label htmlFor="r1" className="text-sm font-medium">Speed</label>
               </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="balanced" id="r2" />
-                <label htmlFor="r2" className="text-sm">Balanced</label>
+              <div className="flex items-center space-x-3">
+                <RadioGroupItem value="balanced" id="r2" className="text-rose-500" />
+                <label htmlFor="r2" className="text-sm font-medium">Balanced</label>
               </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="quality" id="r3" />
-                <label htmlFor="r3" className="text-sm">Quality</label>
+              <div className="flex items-center space-x-3">
+                <RadioGroupItem value="quality" id="r3" className="text-rose-500" />
+                <label htmlFor="r3" className="text-sm font-medium">Quality</label>
               </div>
             </RadioGroup>
           </div>
@@ -148,14 +153,14 @@ const PromptPage = () => {
           </div>
           
           {aiResponse && (
-            <div className="mt-8">
+            <div className="mt-8 animate-fade-in">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-semibold">AI Response:</h3>
-                <ToggleGroup type="single" value={viewMode} onValueChange={(value) => value && setViewMode(value)}>
+                <h3 className="text-xl font-semibold font-heading">AI Response:</h3>
+                <ToggleGroup type="single" value={viewMode} onValueChange={(value) => value && setViewMode(value)} className="bg-gray-100 p-1 rounded-full">
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <ToggleGroupItem value="summary" aria-label="Toggle summary view" className="transition-all duration-300">
+                        <ToggleGroupItem value="summary" aria-label="Toggle summary view" className="transition-all duration-300 data-[state=on]:bg-white data-[state=on]:shadow-sm rounded-full">
                           <List className="h-4 w-4" />
                         </ToggleGroupItem>
                       </TooltipTrigger>
@@ -168,7 +173,7 @@ const PromptPage = () => {
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <ToggleGroupItem value="detailed" aria-label="Toggle detailed view" className="transition-all duration-300">
+                        <ToggleGroupItem value="detailed" aria-label="Toggle detailed view" className="transition-all duration-300 data-[state=on]:bg-white data-[state=on]:shadow-sm rounded-full">
                           <LayoutGrid className="h-4 w-4" />
                         </ToggleGroupItem>
                       </TooltipTrigger>
@@ -180,19 +185,19 @@ const PromptPage = () => {
                 </ToggleGroup>
               </div>
               
-              <div className="p-6 rounded-2xl bg-white shadow-soft">
+              <div className="p-8 rounded-2xl bg-white shadow-soft">
                 {viewMode === "summary" ? (
-                  <p className="text-gray-700 whitespace-pre-wrap">{aiResponse}</p>
+                  <p className="text-gray-700 whitespace-pre-wrap leading-relaxed">{aiResponse}</p>
                 ) : (
-                  <div className="space-y-4">
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      <Badge variant="pro" className="animate-fade-in">Key Point 1</Badge>
-                      <Badge variant="pro" className="animate-fade-in" style={{ animationDelay: "0.1s" }}>Key Point 2</Badge>
-                      <Badge variant="con" className="animate-fade-in" style={{ animationDelay: "0.2s" }}>Consideration</Badge>
+                  <div className="space-y-6">
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      <Badge variant="pro" className="animate-slide-in">Key Point 1</Badge>
+                      <Badge variant="pro" className="animate-slide-in" style={{ animationDelay: "0.1s" }}>Key Point 2</Badge>
+                      <Badge variant="con" className="animate-slide-in" style={{ animationDelay: "0.2s" }}>Consideration</Badge>
                     </div>
-                    <p className="text-gray-700 whitespace-pre-wrap">{aiResponse}</p>
-                    <div className="border-t pt-4 mt-4">
-                      <h4 className="font-medium mb-2">Related Topics:</h4>
+                    <p className="text-gray-700 whitespace-pre-wrap leading-relaxed">{aiResponse}</p>
+                    <div className="border-t border-gray-100 pt-6 mt-6">
+                      <h4 className="font-medium mb-3 font-heading">Related Topics:</h4>
                       <div className="flex flex-wrap gap-2">
                         <Badge variant="neutral" className="animate-slide-in">Topic 1</Badge>
                         <Badge variant="neutral" className="animate-slide-in" style={{ animationDelay: "0.1s" }}>Topic 2</Badge>
@@ -206,13 +211,14 @@ const PromptPage = () => {
           )}
           
           {isLoading && !aiResponse && (
-            <div className="mt-8 p-6 rounded-2xl bg-white shadow-soft">
-              <h3 className="text-xl font-semibold mb-4">Generating response...</h3>
-              <div className="space-y-3">
+            <div className="mt-8 p-8 rounded-2xl bg-white shadow-soft animate-pulse">
+              <h3 className="text-xl font-semibold font-heading mb-6">Generating response...</h3>
+              <div className="space-y-4">
                 <Skeleton className="h-4 w-full" />
                 <Skeleton className="h-4 w-[90%]" />
                 <Skeleton className="h-4 w-[95%]" />
                 <Skeleton className="h-4 w-[85%]" />
+                <Skeleton className="h-4 w-[80%]" />
               </div>
             </div>
           )}
