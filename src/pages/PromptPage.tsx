@@ -5,9 +5,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
-import { LoaderCircle, Sparkles, List, LayoutGrid, Sliders } from "lucide-react";
+import { LoaderCircle, Sparkles, List, LayoutGrid } from "lucide-react";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { Slider } from "@/components/ui/slider";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Badge } from "@/components/ui/badge";
@@ -17,7 +16,6 @@ const PromptPage = () => {
   const [aiResponse, setAiResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [viewMode, setViewMode] = useState("summary");
-  const [creativityLevel, setCreativityLevel] = useState([50]);
   const [priorityFactor, setPriorityFactor] = useState("balanced");
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -41,7 +39,6 @@ const PromptPage = () => {
         },
         body: JSON.stringify({ 
           prompt,
-          creativity: creativityLevel[0],
           priority: priorityFactor 
         }),
       });
@@ -108,49 +105,26 @@ const PromptPage = () => {
             disabled={isLoading}
           />
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-4 bg-white p-4 rounded-2xl shadow-soft">
-              <h3 className="font-medium flex items-center gap-2">
-                <Sliders className="h-4 w-4 text-rose-500" />
-                Creativity Level
-              </h3>
-              <Slider
-                value={creativityLevel}
-                onValueChange={setCreativityLevel}
-                max={100}
-                step={10}
-                className="my-4"
-              />
-              <div className="flex justify-between text-sm text-gray-500">
-                <span>Conservative</span>
-                <Badge variant={creativityLevel[0] <= 30 ? "default" : "outline"}>
-                  {creativityLevel[0]}%
-                </Badge>
-                <span>Creative</span>
+          <div className="space-y-4 bg-white p-4 rounded-2xl shadow-soft">
+            <h3 className="font-medium">Priority Factor</h3>
+            <RadioGroup 
+              value={priorityFactor} 
+              onValueChange={setPriorityFactor}
+              className="flex gap-4"
+            >
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="speed" id="r1" />
+                <label htmlFor="r1" className="text-sm">Speed</label>
               </div>
-            </div>
-            
-            <div className="space-y-4 bg-white p-4 rounded-2xl shadow-soft">
-              <h3 className="font-medium">Priority Factor</h3>
-              <RadioGroup 
-                value={priorityFactor} 
-                onValueChange={setPriorityFactor}
-                className="flex gap-4"
-              >
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="speed" id="r1" />
-                  <label htmlFor="r1" className="text-sm">Speed</label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="balanced" id="r2" />
-                  <label htmlFor="r2" className="text-sm">Balanced</label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="quality" id="r3" />
-                  <label htmlFor="r3" className="text-sm">Quality</label>
-                </div>
-              </RadioGroup>
-            </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="balanced" id="r2" />
+                <label htmlFor="r2" className="text-sm">Balanced</label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="quality" id="r3" />
+                <label htmlFor="r3" className="text-sm">Quality</label>
+              </div>
+            </RadioGroup>
           </div>
           
           <div className="flex justify-center">
